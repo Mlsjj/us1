@@ -1,0 +1,2329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>常数空间 - 官方平台</title>
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入Font Awesome图标库 -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 自定义Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#7B61FF',
+            accent: '#FF61BF',
+            dark: '#14171A', // X平台主深色
+            light: '#F5F8FA', // 浅背景色
+            gray: {
+              300: '#AAB8C2',
+              400: '#8899A6',
+              500: '#657786',
+              700: '#444B54',
+              800: '#1C2023',
+              900: '#14171A',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+  }
+
+</script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      /* 渐变文字工具类 - 匹配蓝→紫→洋红需求 */
+      .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+      }
+      /* 按钮渐变背景 */
+      .bg-gradient-primary {
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+      }
+      /* 通用按钮反馈 */
+      .btn-effect {
+        transition: all 0.2s ease;
+      }
+      .btn-effect:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(22, 93, 255, 0.2);
+      }
+      .btn-effect:active {
+        transform: scale(0.98);
+        box-shadow: none;
+      }
+      /* 社交图标hover渐变 */
+      .social-hover {
+        transition: all 0.3s ease;
+      }
+      .social-hover:hover {
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        color: white !important;
+        transform: translateY(-2px);
+      }
+      /* 链接渐变下划线 */
+      .link-grad {
+        position: relative;
+      }
+      .link-grad::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        transition: width 0.3s ease;
+      }
+      .link-grad:hover::after {
+        width: 100%;
+      }
+      /* 渐入动画 */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.8s ease forwards;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      /* 动画效果 */
+      .animation-bounce {
+        animation: bounce 1s ease infinite;
+      }
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-20px); }
+        60% { transform: translateY(-10px); }
+      }
+      
+      .animation-pulse {
+        animation: pulse 1s ease infinite;
+      }
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+      }
+      
+      .animation-spin {
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .animation-fade {
+        animation: fade 1s ease infinite;
+      }
+      @keyframes fade {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      
+      .animation-slide {
+        animation: slide 1s ease infinite;
+      }
+      @keyframes slide {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(20px); }
+      }
+      
+      .animation-scale {
+        animation: scale 1s ease infinite;
+      }
+      @keyframes scale {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+      }
+      /* 背景渐变效果 */
+      .bg-gradient-dark {
+        background: linear-gradient(135deg, #14171A 0%, #1C2023 100%);
+      }
+      /* 弹窗淡入动画 */
+      .modal-fade-in {
+        animation: modalFadeIn 0.5s ease forwards;
+      }
+      @keyframes modalFadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      /* 平滑滚动 */
+      html {
+        scroll-behavior: smooth;
+      }
+      /* 卡片悬停效果增强 */
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(22, 93, 255, 0.2);
+      }
+      /* 渐变边框效果 */
+      .gradient-border {
+        position: relative;
+        border-radius: 0.5rem;
+      }
+      .gradient-border::before {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        z-index: -1;
+        border-radius: 0.6rem;
+        background: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .gradient-border:hover::before {
+        opacity: 1;
+      }
+      /* 文字发光效果 */
+      .text-glow {
+        text-shadow: 0 0 10px rgba(22, 93, 255, 0.5), 0 0 20px rgba(22, 93, 255, 0.3);
+      }
+      /* 背景发光效果 */
+      .bg-glow {
+        box-shadow: 0 0 20px rgba(22, 93, 255, 0.3), 0 0 40px rgba(22, 93, 255, 0.1);
+      }
+      
+      /* 缓慢脉冲动画 */
+      .animate-pulse-slow {
+        animation: pulseSlow 3s ease-in-out infinite;
+      }
+      @keyframes pulseSlow {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+        }
+      }
+      
+      /* 下划线生长动画 */
+      .animate-grow {
+        animation: grow 2s ease-in-out infinite;
+      }
+      @keyframes grow {
+        0%, 100% {
+          width: 32px;
+        }
+        50% {
+          width: 64px;
+        }
+      }
+      /* 滚动条美化 */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #14171A;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        opacity: 0.8;
+      }
+      /* 脉冲动画 */
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(22, 93, 255, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(22, 93, 255, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(22, 93, 255, 0);
+        }
+      }
+      
+      /* 功能卡片图标动画 */
+      .feature-icon {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+        transition: all 0.6s ease-out;
+      }
+      
+      .feature-card.animate .feature-icon {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        animation: iconBounce 1s ease-out forwards;
+      }
+      
+      @keyframes iconBounce {
+        0% {
+          transform: translateY(20px) scale(0.8);
+        }
+        60% {
+          transform: translateY(-10px) scale(1.1);
+        }
+        100% {
+          transform: translateY(0) scale(1);
+        }
+      }
+      
+      /* 图标旋转动画 */
+      .feature-card.animate .feature-icon i {
+        animation: iconRotate 1s ease-out forwards;
+      }
+      
+      @keyframes iconRotate {
+        0% {
+          transform: rotate(0deg) scale(0.8);
+        }
+        100% {
+          transform: rotate(360deg) scale(1);
+        }
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-dark text-light min-h-screen flex flex-col">
+  <!-- 顶部导航栏 - 融合X/YouTube形态，简洁大气 -->
+  <header class="sticky top-0 z-50 bg-dark/70 backdrop-blur-md border-b border-gray-800/50 py-2 px-4 md:px-6 rounded-b-lg">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- 品牌logo - 常数空间渐变文字 -->
+      <h1 class="text-lg sm:text-xl md:text-2xl font-bold text-gradient" data-lang="welcome">常数空间</h1>
+      <!-- 导航链接 - 服务条款/隐私申明/联系我们 -->
+      <nav class="hidden md:flex gap-4 items-center">
+        <a href="#" onclick="showTerms()" class="text-gray-400 link-grad hover:text-white text-sm" data-lang="termsOfService">服务条款</a>
+        <a href="#" onclick="showPrivacy()" class="text-gray-400 link-grad hover:text-white text-sm" data-lang="privacyPolicy">隐私申明</a>
+        <a href="#" onclick="showContact()" class="text-gray-400 link-grad hover:text-white text-sm" data-lang="contactUs">联系我们</a>
+        <!-- 语言选择 -->
+        <div class="relative">
+          <button id="languageBtn" class="text-gray-400 link-grad hover:text-white flex items-center gap-1 text-sm">
+            <i class="fa fa-globe text-xs"></i>
+            <span id="currentLanguage">中文</span>
+          </button>
+          <div id="languageDropdown" class="absolute right-0 mt-1 w-28 bg-gray-800 rounded-lg shadow-lg hidden z-50">
+            <a href="#" onclick="changeLanguage('zh')" class="block px-3 py-1 text-xs text-gray-400 hover:bg-gray-700 hover:text-white">中文</a>
+            <a href="#" onclick="changeLanguage('en')" class="block px-3 py-1 text-xs text-gray-400 hover:bg-gray-700 hover:text-white">English</a>
+          </div>
+        </div>
+      </nav>
+      <!-- 移动端菜单按钮 -->
+      <button id="mobileMenuBtn" class="md:hidden text-gray-400 hover:text-white">
+        <i class="fa fa-bars text-lg"></i>
+      </button>
+    </div>
+    <!-- 移动端菜单 -->
+    <div id="mobileMenu" class="md:hidden hidden bg-gray-900 border-t border-gray-800 mt-2 py-2 px-4 rounded-b-lg">
+      <div class="flex flex-col gap-2">
+        <a href="#" onclick="showTerms(); toggleMobileMenu()" class="text-gray-400 link-grad hover:text-white py-1 text-sm" data-lang="termsOfService">服务条款</a>
+        <a href="#" onclick="showPrivacy(); toggleMobileMenu()" class="text-gray-400 link-grad hover:text-white py-1 text-sm" data-lang="privacyPolicy">隐私申明</a>
+        <a href="#" onclick="showContact(); toggleMobileMenu()" class="text-gray-400 link-grad hover:text-white py-1 text-sm" data-lang="contactUs">联系我们</a>
+        <!-- 移动端语言选择 -->
+        <div class="relative">
+          <button id="mobileLanguageBtn" class="text-gray-400 link-grad hover:text-white flex items-center gap-1 w-full justify-start py-1 text-sm">
+            <i class="fa fa-globe text-xs"></i>
+            <span id="mobileCurrentLanguage">中文</span>
+          </button>
+          <div id="mobileLanguageDropdown" class="absolute left-0 mt-1 w-28 bg-gray-800 rounded-lg shadow-lg hidden z-50">
+            <a href="#" onclick="changeLanguage('zh'); toggleMobileMenu()" class="block px-3 py-1 text-xs text-gray-400 hover:bg-gray-700 hover:text-white">中文</a>
+            <a href="#" onclick="changeLanguage('en'); toggleMobileMenu()" class="block px-3 py-1 text-xs text-gray-400 hover:bg-gray-700 hover:text-white">English</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main class="flex-grow">
+    <!-- 首页区域 -->
+    <section id="home" class="px-4 md:px-8 py-16 md:py-24 flex flex-col items-center justify-center">
+      <div class="max-w-4xl mx-auto text-center fade-in">
+        <!-- 品牌logo - 常数空间渐变文字 -->
+        <h1 class="text-5xl md:text-7xl font-bold mb-8 relative inline-block">
+          <span class="text-gradient relative z-10" data-lang="welcome">常数空间</span>
+          <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-primary rounded-full"></span>
+        </h1>
+        
+        <!-- 宣传标语 -->
+        <p class="text-2xl md:text-3xl text-gray-300 mb-12 max-w-3xl mx-auto font-light" data-lang="slogan">
+          探索无限可能的工具乐园
+        </p>
+        
+        <!-- 核心优势 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 cursor-pointer feature-card">
+            <div class="text-primary text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-shield"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="coreAdvantagePrivacy">隐私保护</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="coreAdvantagePrivacyDesc">绝不窃取、存储或滥用任何用户隐私数据，所有输入内容仅在本地处理</p>
+          </div>
+          
+          <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 cursor-pointer feature-card">
+            <div class="text-primary text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-bolt"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="coreAdvantageEfficiency">高效输入</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="coreAdvantageEfficiencyDesc">简洁流畅的输入体验，让您的操作更加高效便捷</p>
+          </div>
+          
+          <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 cursor-pointer feature-card">
+            <div class="text-primary text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-globe"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="featureMultilingual">多语言支持</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="featureMultilingualDesc">支持中文和英文切换，满足不同用户的语言需求</p>
+          </div>
+        </div>
+        
+        <!-- 行动按钮 -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+          <a href="tools.html" class="bg-gradient-primary text-white rounded-full px-8 py-4 btn-effect flex items-center gap-2 text-lg">
+            <i class="fa fa-rocket"></i>
+            <span data-lang="startUsing">开始使用</span>
+          </a>
+          <a href="#concept" class="bg-transparent border-2 border-gray-600 text-gray-300 rounded-full px-8 py-4 btn-effect flex items-center gap-2 text-lg hover:border-primary hover:text-primary">
+            <i class="fa fa-info-circle"></i>
+            <span data-lang="learnMore">了解更多</span>
+          </a>
+        </div>
+        
+        <!-- 底部说明 -->
+        <p class="text-gray-500 text-sm md:text-base max-w-2xl mx-auto" data-lang="bottomDescription">
+          常数空间致力于为用户提供安全、高效的输入体验，我们始终将用户隐私放在首位，
+          所有操作均在本地设备完成，确保您的数据安全与隐私权益。
+        </p>
+      </div>
+    </section>
+
+    <!-- 功能介绍板块 -->
+    <section class="px-4 md:px-8 py-16 md:py-24 bg-dark/50 my-8 relative overflow-hidden">
+      <!-- 背景装饰 -->
+      <div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -mr-32 -mt-32 animate-pulse-slow"></div>
+      <div class="absolute bottom-0 left-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl -ml-32 -mb-32 animate-pulse-slow"></div>
+      
+      <div class="max-w-5xl mx-auto relative z-10">
+        <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 relative">
+          <span class="inline-block text-gradient relative z-10 animate-pulse-slow">
+            <i class="fa fa-cogs mr-3 text-primary"></i>
+            <span data-lang="coreFeatures">核心功能</span>
+          </span>
+          <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-primary rounded-full animate-grow"></span>
+        </h2>
+        
+        <div class="flex flex-wrap justify-center gap-8">
+          <!-- 功能1 -->
+          <div class="w-full md:w-[calc(33.333%-24px)] lg:w-[calc(33.333%-24px)] bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 feature-card hover:bg-gradient-to-br hover:from-gray-800/70 hover:to-gray-900/70">
+            <div class="text-primary text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-lock"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="featureLocalProcessing">本地处理</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="featureLocalProcessingDesc">所有输入内容仅在本地设备处理，不会上传至任何服务器，确保数据安全</p>
+            <button class="w-full bg-gradient-primary text-white rounded-full px-6 py-2 btn-effect text-sm mt-4" onclick="window.location.href='tools.html#tools'; setTimeout(() => { if (typeof openTool === 'function') openTool('jsonFormatter'); }, 500);">
+              <span data-lang="tryNow">立即尝试</span>
+            </button>
+          </div>
+          
+          <!-- 功能2 -->
+          <div class="w-full md:w-[calc(33.333%-24px)] lg:w-[calc(33.333%-24px)] bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-secondary/50 hover:shadow-xl hover:shadow-secondary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 feature-card hover:bg-gradient-to-br hover:from-gray-800/70 hover:to-gray-900/70 relative">
+            <div class="absolute -top-2 -right-2 w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-sm">
+              <i class="fa fa-star"></i>
+            </div>
+            <div class="text-secondary text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-bolt"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="featureEfficientInput">高效输入</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="featureEfficientInputDesc">简洁流畅的输入体验，智能联想功能，提高输入效率</p>
+            <button class="w-full bg-gradient-primary text-white rounded-full px-6 py-2 btn-effect text-sm mt-4" onclick="window.location.href='tools.html#tools'; setTimeout(() => { if (typeof openTool === 'function') openTool('codeEditor'); }, 500);">
+              <span data-lang="tryNow">立即尝试</span>
+            </button>
+          </div>
+          
+          <!-- 功能3 -->
+          <div class="w-full md:w-[calc(33.333%-24px)] lg:w-[calc(33.333%-24px)] bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-accent/50 hover:shadow-xl hover:shadow-accent/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 feature-card hover:bg-gradient-to-br hover:from-gray-800/70 hover:to-gray-900/70">
+            <div class="text-accent text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-globe"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="featureMultilingual">多语言支持</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="featureMultilingualDesc">支持中文和英文切换，满足不同用户的语言需求</p>
+            <button class="w-full bg-gradient-primary text-white rounded-full px-6 py-2 btn-effect text-sm mt-4" onclick="window.location.href='tools.html#tools'; setTimeout(() => { if (typeof openTool === 'function') openTool('animationTool'); }, 500);">
+              <span data-lang="tryNow">立即尝试</span>
+            </button>
+          </div>
+          
+          <!-- 功能4 -->
+          <div class="w-full md:w-[calc(33.333%-24px)] lg:w-[calc(33.333%-24px)] bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 feature-card hover:bg-gradient-to-br hover:from-gray-800/70 hover:to-gray-900/70">
+            <div class="text-primary text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-shield"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="featureSecurity">安全保障</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="featureSecurityDesc">采用多层安全防护措施，防止XSS攻击和其他安全威胁</p>
+            <button class="w-full bg-gradient-primary text-white rounded-full px-6 py-2 btn-effect text-sm mt-4" onclick="window.location.href='tools.html#tools'; setTimeout(() => { if (typeof openTool === 'function') openTool('passwordGenerator'); }, 500);">
+              <span data-lang="tryNow">立即尝试</span>
+            </button>
+          </div>
+          
+          <!-- 功能5 -->
+          <div class="w-full md:w-[calc(33.333%-24px)] lg:w-[calc(33.333%-24px)] bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-secondary/50 hover:shadow-xl hover:shadow-secondary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 feature-card hover:bg-gradient-to-br hover:from-gray-800/70 hover:to-gray-900/70">
+            <div class="text-secondary text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-mobile"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="featureResponsive">响应式设计</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="featureResponsiveDesc">适配各种设备屏幕，在手机、平板和电脑上都能完美使用</p>
+            <button class="w-full bg-gradient-primary text-white rounded-full px-6 py-2 btn-effect text-sm mt-4" onclick="window.location.href='tools.html#tools'; setTimeout(() => { if (typeof openTool === 'function') openTool('colorPicker'); }, 500);">
+              <span data-lang="tryNow">立即尝试</span>
+            </button>
+          </div>
+          
+          <!-- 功能6 -->
+          <div class="w-full md:w-[calc(33.333%-24px)] lg:w-[calc(33.333%-24px)] bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-accent/50 hover:shadow-xl hover:shadow-accent/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 feature-card hover:bg-gradient-to-br hover:from-gray-800/70 hover:to-gray-900/70 relative">
+            <div class="absolute -bottom-2 -left-2 w-12 h-12 bg-gradient-secondary rounded-full flex items-center justify-center text-white font-bold text-sm">
+              <i class="fa fa-paint-brush"></i>
+            </div>
+            <div class="text-accent text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-sliders"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="featurePersonalization">个性化设置</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="featurePersonalizationDesc">支持自定义主题、快捷键等设置，打造专属输入体验</p>
+            <button class="w-full bg-gradient-primary text-white rounded-full px-6 py-2 btn-effect text-sm mt-4" onclick="window.location.href='tools.html#tools'; setTimeout(() => { if (typeof openTool === 'function') openTool('regexTester'); }, 500);">
+              <span data-lang="tryNow">立即尝试</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 优势对比板块 -->
+    <section class="px-4 md:px-8 py-16 md:py-24 bg-dark/50 my-8">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 relative">
+          <span class="inline-block text-gradient relative z-10">
+            <i class="fa fa-line-chart mr-3 text-primary"></i>
+            <span data-lang="comparisonTitle">优势对比</span>
+          </span>
+          <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-primary rounded-full"></span>
+        </h2>
+        
+        <div class="overflow-x-auto rounded-2xl border border-gray-700 shadow-lg">
+          <table class="w-full border-collapse bg-gray-800/50">
+            <thead>
+              <tr class="bg-gray-900">
+                <th class="border-b border-gray-700 px-6 py-4 text-left text-white font-semibold" data-lang="comparisonFeature">功能特性</th>
+                <th class="border-b border-l border-gray-700 px-6 py-4 text-left text-white font-semibold" data-lang="comparisonOurProduct">常数空间</th>
+                <th class="border-b border-l border-gray-700 px-6 py-4 text-left text-white font-semibold" data-lang="comparisonTraditional">传统输入工具</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="hover:bg-gray-700/30 transition-colors duration-200">
+                <td class="border-b border-gray-700 px-6 py-4 text-gray-300 font-medium hover:text-white transition-colors duration-200" data-lang="comparisonPrivacy">数据隐私保护</td>
+                <td class="border-b border-l border-gray-700 px-6 py-4 text-green-400 hover:text-green-300 transition-colors duration-200" data-lang="comparisonPrivacyOur">本地处理，不上传</td>
+                <td class="border-b border-l border-gray-700 px-6 py-4 text-red-400 hover:text-red-300 transition-colors duration-200" data-lang="comparisonPrivacyTraditional">可能上传用户数据</td>
+              </tr>
+              <tr class="hover:bg-gray-700/30 transition-colors duration-200">
+                <td class="border-b border-gray-700 px-6 py-4 text-gray-300 font-medium hover:text-white transition-colors duration-200" data-lang="comparisonEfficiency">输入效率</td>
+                <td class="border-b border-l border-gray-700 px-6 py-4 text-green-400 hover:text-green-300 transition-colors duration-200" data-lang="comparisonEfficiencyOur">智能联想，高效输入</td>
+                <td class="border-b border-l border-gray-700 px-6 py-4 text-yellow-400 hover:text-yellow-300 transition-colors duration-200" data-lang="comparisonEfficiencyTraditional">基础输入功能</td>
+              </tr>
+              <tr class="hover:bg-gray-700/30 transition-colors duration-200">
+                <td class="border-b border-gray-700 px-6 py-4 text-gray-300 font-medium hover:text-white transition-colors duration-200" data-lang="comparisonMultilingual">多语言支持</td>
+                <td class="border-b border-l border-gray-700 px-6 py-4 text-green-400 hover:text-green-300 transition-colors duration-200" data-lang="comparisonMultilingualOur">支持中英文切换</td>
+                <td class="border-b border-l border-gray-700 px-6 py-4 text-yellow-400 hover:text-yellow-300 transition-colors duration-200" data-lang="comparisonMultilingualTraditional">可能仅支持单一语言</td>
+              </tr>
+              <tr class="hover:bg-gray-700/30 transition-colors duration-200">
+                <td class="border-b border-gray-700 px-6 py-4 text-gray-300 font-medium hover:text-white transition-colors duration-200" data-lang="comparisonResponsive">响应式设计</td>
+                <td class="border-b border-l border-gray-700 px-6 py-4 text-green-400 hover:text-green-300 transition-colors duration-200" data-lang="comparisonResponsiveOur">适配各种设备</td>
+                <td class="border-b border-l border-gray-700 px-6 py-4 text-red-400 hover:text-red-300 transition-colors duration-200" data-lang="comparisonResponsiveTraditional">可能仅支持特定设备</td>
+              </tr>
+              <tr class="hover:bg-gray-700/30 transition-colors duration-200">
+                <td class="border-gray-700 px-6 py-4 text-gray-300 font-medium hover:text-white transition-colors duration-200" data-lang="comparisonSecurity">安全性</td>
+                <td class="border-l border-gray-700 px-6 py-4 text-green-400 hover:text-green-300 transition-colors duration-200" data-lang="comparisonSecurityOur">多层安全防护</td>
+                <td class="border-l border-gray-700 px-6 py-4 text-red-400 hover:text-red-300 transition-colors duration-200" data-lang="comparisonSecurityTraditional">基础安全措施</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- 对比总结 -->
+        <div class="mt-12 bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:bg-gray-800/70 transition-colors duration-200">
+          <h3 class="text-xl font-semibold mb-4 text-white hover:text-gradient transition-all duration-200" data-lang="comparisonSummary">对比总结</h3>
+          <p class="text-gray-300 hover:text-gray-200 transition-colors duration-200" data-lang="comparisonSummaryText">
+            通过以上对比可以看出，常数空间在<span class="text-green-400 font-medium hover:text-green-300 transition-colors duration-200">数据隐私保护</span>、<span class="text-green-400 font-medium hover:text-green-300 transition-colors duration-200">输入效率</span>、<span class="text-green-400 font-medium hover:text-green-300 transition-colors duration-200">多语言支持</span>、<span class="text-green-400 font-medium hover:text-green-300 transition-colors duration-200">响应式设计</span>和<span class="text-green-400 font-medium hover:text-green-300 transition-colors duration-200">安全性</span>等核心方面都具有明显优势。
+            我们致力于为用户提供更安全、更高效、更个性化的输入体验，让每一次输入都成为一种享受。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 常见问题板块 -->
+    <section class="px-4 md:px-8 py-16 md:py-24 bg-dark/50 my-8">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 relative">
+          <span class="inline-block text-gradient relative z-10">
+            <i class="fa fa-star mr-3 text-primary"></i>
+            <span data-lang="testimonialsTitle">用户评价</span>
+          </span>
+          <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-primary rounded-full"></span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- 评价1 -->
+          <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300">
+            <div class="text-yellow-400 mb-4">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+            <p class="text-gray-300 mb-6 italic" data-lang="testimonial1">"常数空间真的很棒！输入体验流畅，而且不用担心数据隐私问题。多语言支持也很实用，推荐给大家。"</p>
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
+                张
+              </div>
+              <div class="ml-4">
+                <h4 class="text-white font-semibold" data-lang="testimonial1Name">张先生</h4>
+                <p class="text-gray-400 text-sm" data-lang="testimonial1Title">软件工程师</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 评价2 -->
+          <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300">
+            <div class="text-yellow-400 mb-4">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star-half-o"></i>
+            </div>
+            <p class="text-gray-300 mb-6 italic" data-lang="testimonial2">"作为一名翻译，我经常需要在中英文之间切换，常数空间的多语言支持功能非常贴心，输入效率大大提高。"</p>
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
+                李
+              </div>
+              <div class="ml-4">
+                <h4 class="text-white font-semibold" data-lang="testimonial2Name">李女士</h4>
+                <p class="text-gray-400 text-sm" data-lang="testimonial2Title">翻译</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 评价3 -->
+          <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300">
+            <div class="text-yellow-400 mb-4">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+            <p class="text-gray-300 mb-6 italic" data-lang="testimonial3">"隐私保护做得很好，所有数据都在本地处理，不用担心信息泄露。界面简洁美观，使用起来非常顺手。"</p>
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
+                王
+              </div>
+              <div class="ml-4">
+                <h4 class="text-white font-semibold" data-lang="testimonial3Name">王先生</h4>
+                <p class="text-gray-400 text-sm" data-lang="testimonial3Title">数据分析师</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 动画效果板块 -->
+    <section class="px-4 md:px-8 py-16 md:py-24 bg-dark/50 my-8">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 relative">
+          <span class="inline-block text-gradient relative z-10">
+            <i class="fa fa-question-circle mr-3 text-primary"></i>
+            <span data-lang="faqTitle">常见问题</span>
+          </span>
+          <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-primary rounded-full"></span>
+        </h2>
+        
+        <div class="space-y-6">
+          <!-- 问题1 -->
+          <div class="bg-gray-800/50 rounded-2xl border border-gray-700 overflow-hidden">
+            <button class="w-full flex justify-between items-center p-6 text-left text-white font-semibold hover:bg-gray-800/80 transition-colors duration-300 focus:outline-none" onclick="toggleFAQ(this)">
+              <span data-lang="faq1Question">常数空间如何保护我的隐私？</span>
+              <i class="fa fa-chevron-down transition-transform duration-300"></i>
+            </button>
+            <div class="hidden px-6 pb-6">
+              <p class="text-gray-300" data-lang="faq1Answer">常数空间采用本地处理机制，所有输入内容仅在您的设备上处理，不会上传至任何服务器。我们不会收集、存储或分享您的任何个人数据，确保您的隐私安全。</p>
+            </div>
+          </div>
+          
+          <!-- 问题2 -->
+          <div class="bg-gray-800/50 rounded-2xl border border-gray-700 overflow-hidden">
+            <button class="w-full flex justify-between items-center p-6 text-left text-white font-semibold hover:bg-gray-800/80 transition-colors duration-300 focus:outline-none" onclick="toggleFAQ(this)">
+              <span data-lang="faq2Question">常数空间支持哪些语言？</span>
+              <i class="fa fa-chevron-down transition-transform duration-300"></i>
+            </button>
+            <div class="hidden px-6 pb-6">
+              <p class="text-gray-300" data-lang="faq2Answer">目前常数空间支持中文和英文两种语言，您可以在设置中随时切换语言。我们计划在未来版本中添加更多语言支持。</p>
+            </div>
+          </div>
+          
+          <!-- 问题3 -->
+          <div class="bg-gray-800/50 rounded-2xl border border-gray-700 overflow-hidden">
+            <button class="w-full flex justify-between items-center p-6 text-left text-white font-semibold hover:bg-gray-800/80 transition-colors duration-300 focus:outline-none" onclick="toggleFAQ(this)">
+              <span data-lang="faq3Question">常数空间可以在哪些设备上使用？</span>
+              <i class="fa fa-chevron-down transition-transform duration-300"></i>
+            </button>
+            <div class="hidden px-6 pb-6">
+              <p class="text-gray-300" data-lang="faq3Answer">常数空间采用响应式设计，支持在各种设备上使用，包括电脑、平板和手机。只要您的设备有浏览器，就可以访问并使用常数空间。</p>
+            </div>
+          </div>
+          
+          <!-- 问题4 -->
+          <div class="bg-gray-800/50 rounded-2xl border border-gray-700 overflow-hidden">
+            <button class="w-full flex justify-between items-center p-6 text-left text-white font-semibold hover:bg-gray-800/80 transition-colors duration-300 focus:outline-none" onclick="toggleFAQ(this)">
+              <span data-lang="faq4Question">常数空间是免费的吗？</span>
+              <i class="fa fa-chevron-down transition-transform duration-300"></i>
+            </button>
+            <div class="hidden px-6 pb-6">
+              <p class="text-gray-300" data-lang="faq4Answer">是的，常数空间是完全免费的。我们致力于为用户提供高质量的输入工具，不收取任何费用，也不会在界面中显示广告。</p>
+            </div>
+          </div>
+          
+          <!-- 问题5 -->
+          <div class="bg-gray-800/50 rounded-2xl border border-gray-700 overflow-hidden">
+            <button class="w-full flex justify-between items-center p-6 text-left text-white font-semibold hover:bg-gray-800/80 transition-colors duration-300 focus:outline-none" onclick="toggleFAQ(this)">
+              <span data-lang="faq5Question">如何联系常数空间团队？</span>
+              <i class="fa fa-chevron-down transition-transform duration-300"></i>
+            </button>
+            <div class="hidden px-6 pb-6">
+              <p class="text-gray-300" data-lang="faq5Answer">您可以通过官方邮箱 jonessj893@gmail.com 联系我们，或者在网站底部点击"联系我们"按钮发送消息。我们会在24小时内回复您的问题。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 技术特点板块 -->
+    <section class="container mx-auto px-4 md:px-8 py-16 md:py-24 bg-dark/50 rounded-3xl my-8 relative overflow-hidden">
+      <!-- 背景装饰 -->
+      <div class="absolute top-0 left-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl -ml-32 -mt-32 animate-pulse-slow"></div>
+      <div class="absolute bottom-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -mr-32 -mb-32 animate-pulse-slow"></div>
+      
+      <div class="max-w-5xl mx-auto relative z-10">
+        <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 relative">
+          <span class="inline-block text-gradient relative z-10 animate-pulse-slow">
+            <i class="fa fa-code mr-3 text-primary"></i>
+            <span data-lang="techFeaturesTitle">技术特点</span>
+          </span>
+          <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-primary rounded-full animate-grow"></span>
+        </h2>
+        
+        <div class="flex flex-wrap justify-center gap-8">
+          <!-- 技术1 -->
+          <div class="w-full md:w-[calc(50%-24px)] bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 feature-card hover:bg-gradient-to-br hover:from-gray-800/70 hover:to-gray-900/70 relative">
+            <div class="absolute -top-3 -left-3 w-14 h-14 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-sm">
+              <i class="fa fa-code"></i>
+            </div>
+            <div class="text-primary text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon ml-6">
+              <i class="fa fa-code"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="techModernFrontend">现代前端技术</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="techModernFrontendDesc">采用HTML5、CSS3和JavaScript ES6+开发，使用Tailwind CSS实现响应式设计，确保在各种设备上的良好体验</p>
+          </div>
+          
+          <!-- 技术2 -->
+          <div class="w-full md:w-[calc(50%-24px)] bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-secondary/50 hover:shadow-xl hover:shadow-secondary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 feature-card hover:bg-gradient-to-br hover:from-gray-800/70 hover:to-gray-900/70">
+            <div class="text-secondary text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-cogs"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="techModularArchitecture">模块化架构</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="techModularArchitectureDesc">采用模块化设计，代码结构清晰，易于维护和扩展，为未来功能升级做好准备</p>
+          </div>
+          
+          <!-- 技术3 -->
+          <div class="w-full md:w-[calc(50%-24px)] bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-accent/50 hover:shadow-xl hover:shadow-accent/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 feature-card hover:bg-gradient-to-br hover:from-gray-800/70 hover:to-gray-900/70">
+            <div class="text-accent text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-bolt"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="techPerformanceOptimization">性能优化</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="techPerformanceOptimizationDesc">经过精心优化，加载速度快，运行流畅，即使在低配置设备上也能良好运行</p>
+          </div>
+          
+          <!-- 技术4 -->
+          <div class="w-full md:w-[calc(50%-24px)] bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/30 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-300 feature-card hover:bg-gradient-to-br hover:from-gray-800/70 hover:to-gray-900/70 relative">
+            <div class="absolute -bottom-3 -right-3 w-14 h-14 bg-gradient-accent rounded-full flex items-center justify-center text-white font-bold text-sm">
+              <i class="fa fa-shield"></i>
+            </div>
+            <div class="text-primary text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-shield"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="techSecurityAssurance">安全保障</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="techSecurityAssuranceDesc">采用多层安全防护措施，防止XSS攻击和其他安全威胁，确保用户数据安全</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 未来规划板块 -->
+    <section class="px-4 md:px-8 py-20 md:py-32 bg-dark/50 my-8 relative overflow-hidden">
+      <!-- 背景装饰 -->
+      <div class="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -mr-48 -mt-48 animate-pulse-slow"></div>
+      <div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -ml-48 -mb-48 animate-pulse-slow"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-128 h-128 bg-accent/5 rounded-full blur-3xl animate-pulse-slow"></div>
+      
+      <!-- 科技感网格背景 -->
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(22,93,255,0.05)_1px,transparent_1px)] bg-[length:20px_20px]"></div>
+      
+      <div class="max-w-6xl mx-auto relative z-10">
+        <!-- 板块标题 -->
+        <div class="text-center mb-24">
+          <h2 class="text-5xl md:text-6xl font-bold mb-6 relative inline-block">
+            <span class="text-gradient relative z-10" data-lang="futurePlanning">未来规划</span>
+            <span class="absolute -bottom-3 left-0 w-full h-2 bg-gradient-primary rounded-full animate-grow"></span>
+          </h2>
+          <p class="text-xl text-gray-400 max-w-3xl mx-auto" data-lang="futurePlanningDesc">
+            常数空间正在不断进化，我们规划了一系列激动人心的功能和改进，为用户带来更加出色的体验
+          </p>
+        </div>
+        
+        <!-- 规划时间线 -->
+        <div class="relative">
+          <!-- 时间线主线 -->
+          <div class="absolute left-0 md:left-1/2 transform md:translate-x-[-50%] h-full w-1 bg-gradient-to-b from-primary via-secondary to-accent"></div>
+          
+          <!-- 时间点1 -->
+          <div class="relative mb-16 md:mb-32">
+            <div class="flex flex-col md:flex-row items-center">
+              <!-- 内容卡片 -->
+              <div class="md:w-1/2 md:pr-16 md:text-right order-2 md:order-1">
+                <div class="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-500 gradient-border feature-card group">
+                  <div class="text-primary text-4xl mb-6 hover:text-white transition-colors duration-300 feature-icon group-hover:rotate-12">
+                    <i class="fa fa-globe"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4 text-white hover:text-gradient transition-all duration-300" data-lang="moreLanguageSupport">更多语言支持</h3>
+                  <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300 mb-4" data-lang="moreLanguageSupportDesc">
+                    添加日语、韩语、法语、德语等多种语言支持，满足全球用户的需求
+                  </p>
+                  <div class="inline-block bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium hover:bg-primary/30 transition-colors duration-300">
+                    全球化战略
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 时间点 -->
+              <div class="absolute left-0 md:left-1/2 transform md:translate-x-[-50%] w-8 h-8 rounded-full bg-gradient-primary border-4 border-gray-900 pulse"></div>
+              
+              <!-- 时间标签 -->
+              <div class="md:w-1/2 md:pl-16 order-1 md:order-2 mb-8 md:mb-0">
+                <div class="bg-gray-900/80 backdrop-blur-sm rounded-xl p-4 border border-gray-800 inline-block">
+                  <span class="text-primary font-bold text-xl" data-lang="quarter2026Q2">2026 Q2</span>
+                  <p class="text-gray-400 text-sm mt-1" data-lang="comingSoon">即将推出</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 时间点2 -->
+          <div class="relative mb-16 md:mb-32">
+            <div class="flex flex-col md:flex-row items-center">
+              <!-- 时间标签 -->
+              <div class="md:w-1/2 md:pr-16 order-2 md:order-1 mb-8 md:mb-0">
+                <div class="bg-gray-900/80 backdrop-blur-sm rounded-xl p-4 border border-gray-800 inline-block">
+                  <span class="text-secondary font-bold text-xl" data-lang="quarter2026Q3">2026 Q3</span>
+                  <p class="text-gray-400 text-sm mt-1" data-lang="inDevelopment">开发中</p>
+                </div>
+              </div>
+              
+              <!-- 时间点 -->
+              <div class="absolute left-0 md:left-1/2 transform md:translate-x-[-50%] w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary border-4 border-gray-900 pulse"></div>
+              
+              <!-- 内容卡片 -->
+              <div class="md:w-1/2 md:pl-16 order-1 md:order-2">
+                <div class="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-secondary/50 hover:shadow-2xl hover:shadow-secondary/20 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-500 gradient-border feature-card group">
+                  <div class="text-secondary text-4xl mb-6 hover:text-white transition-colors duration-300 feature-icon group-hover:rotate-12">
+                    <i class="fa fa-search"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4 text-white hover:text-gradient transition-all duration-300" data-lang="advancedSearchFeature">高级搜索功能</h3>
+                  <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300 mb-4" data-lang="advancedSearchFeatureDesc">
+                    添加高级搜索选项，支持精确匹配、排除关键词等高级搜索功能
+                  </p>
+                  <div class="inline-block bg-secondary/20 text-secondary px-4 py-2 rounded-full text-sm font-medium hover:bg-secondary/30 transition-colors duration-300">
+                    搜索能力升级
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 时间点3 -->
+          <div class="relative mb-16 md:mb-32">
+            <div class="flex flex-col md:flex-row items-center">
+              <!-- 内容卡片 -->
+              <div class="md:w-1/2 md:pr-16 md:text-right order-2 md:order-1">
+                <div class="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-accent/50 hover:shadow-2xl hover:shadow-accent/20 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-500 gradient-border feature-card group">
+                  <div class="text-accent text-4xl mb-6 hover:text-white transition-colors duration-300 feature-icon group-hover:rotate-12">
+                    <i class="fa fa-paint-brush"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4 text-white hover:text-gradient transition-all duration-300" data-lang="customThemes">自定义主题</h3>
+                  <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300 mb-4" data-lang="customThemesDesc">
+                    允许用户创建和分享自定义主题，打造个性化的输入界面
+                  </p>
+                  <div class="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-medium hover:bg-accent/30 transition-colors duration-300">
+                    个性化体验
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 时间点 -->
+              <div class="absolute left-0 md:left-1/2 transform md:translate-x-[-50%] w-8 h-8 rounded-full bg-gradient-to-r from-secondary to-accent border-4 border-gray-900 pulse"></div>
+              
+              <!-- 时间标签 -->
+              <div class="md:w-1/2 md:pl-16 order-1 md:order-2 mb-8 md:mb-0">
+                <div class="bg-gray-900/80 backdrop-blur-sm rounded-xl p-4 border border-gray-800 inline-block">
+                  <span class="text-accent font-bold text-xl" data-lang="quarter2026Q4">2026 Q4</span>
+                  <p class="text-gray-400 text-sm mt-1" data-lang="planned">计划中</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 时间点4 -->
+          <div class="relative">
+            <div class="flex flex-col md:flex-row items-center">
+              <!-- 时间标签 -->
+              <div class="md:w-1/2 md:pr-16 order-2 md:order-1 mb-8 md:mb-0">
+                <div class="bg-gray-900/80 backdrop-blur-sm rounded-xl p-4 border border-gray-800 inline-block">
+                  <span class="text-primary font-bold text-xl" data-lang="quarter2027Q1">2027 Q1</span>
+                  <p class="text-gray-400 text-sm mt-1" data-lang="roadmap">路线图</p>
+                </div>
+              </div>
+              
+              <!-- 时间点 -->
+              <div class="absolute left-0 md:left-1/2 transform md:translate-x-[-50%] w-8 h-8 rounded-full bg-gradient-to-r from-accent to-primary border-4 border-gray-900 pulse"></div>
+              
+              <!-- 内容卡片 -->
+              <div class="md:w-1/2 md:pl-16 order-1 md:order-2">
+                <div class="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20 hover:bg-gray-800/80 transform hover:scale-105 transition-all duration-500 gradient-border feature-card group">
+                  <div class="text-primary text-4xl mb-6 hover:text-white transition-colors duration-300 feature-icon group-hover:rotate-12">
+                    <i class="fa fa-window-maximize"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4 text-white hover:text-gradient transition-all duration-300" data-lang="browserExtensions">浏览器扩展</h3>
+                  <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300 mb-4" data-lang="browserExtensionsDesc">
+                    开发Chrome、Firefox等浏览器扩展，让用户在任何网页上都能使用常数空间
+                  </p>
+                  <div class="inline-block bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-medium hover:bg-primary/30 transition-colors duration-300">
+                    跨平台支持
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 底部号召性按钮 -->
+        <div class="text-center mt-24">
+          <a href="#contact" class="inline-block bg-gradient-primary text-white rounded-full px-8 py-4 btn-effect flex items-center gap-2 text-lg font-semibold hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300">
+            <i class="fa fa-rocket"></i>
+            <span data-lang="joinJourney">加入我们的旅程</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 常数空间核心概念展示 -->
+    <section class="container mx-auto px-4 md:px-8 py-16 md:py-24 bg-dark/50 rounded-3xl my-8">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 relative">
+          <span class="inline-block text-gradient relative z-10">
+            <i class="fa fa-cube mr-3 text-primary"></i>
+            <span data-lang="coreConceptTitle">常数空间核心概念</span>
+          </span>
+          <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-primary rounded-full"></span>
+        </h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- 概念动画展示 -->
+          <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20">
+            <h3 class="text-xl font-semibold mb-4 text-white hover:text-gradient transition-all duration-300" data-lang="workingPrincipleDemo">工作原理演示</h3>
+            <div class="relative h-64 md:h-80 bg-gray-900 rounded-xl flex items-center justify-center overflow-hidden hover:shadow-2xl hover:shadow-primary/30 transition-all duration-500">
+              <div id="constantSpaceDemo" class="w-full h-full relative">
+                <!-- 科技感背景 -->
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(22,93,255,0.1)_1px,transparent_1px)] bg-[length:15px_15px]"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 animate-pulse-slow"></div>
+                
+                <!-- 科技感网格线 -->
+                <svg class="absolute top-0 left-0 w-full h-full" viewBox="0 0 400 300">
+                  <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(22,93,255,0.1)" stroke-width="0.5"/>
+                  </pattern>
+                  <rect width="100%" height="100%" fill="url(#grid)"/>
+                </svg>
+                
+                <!-- 核心处理节点 -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gray-800 rounded-xl flex flex-col items-center justify-center text-white font-bold border-2 border-primary relative cursor-pointer transition-all duration-300 hover:scale-110 hover:border-primary/80" id="localProcessing">
+                  <span class="text-sm" data-lang="localProcessing">本地处理</span>
+                  <div class="w-4 h-4 bg-green-400 rounded-full mt-2 animate-pulse" id="processingIndicator"></div>
+                  <!-- 脉冲效果 -->
+                  <div class="absolute inset-0 rounded-xl border border-primary/50 animate-ping"></div>
+                  <!-- 环绕粒子 -->
+                  <div class="absolute inset-0 rounded-xl" id="orbitContainer"></div>
+                  <!-- 增强发光效果 -->
+                  <div class="absolute inset-0 rounded-xl bg-gradient-primary/10 blur-xl animate-pulse-slow"></div>
+                </div>
+                
+                <!-- 数据输入节点 -->
+                <div class="absolute top-10 left-10 w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold shadow-lg cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-primary/50" id="dataInputNode">
+                  <i class="fa fa-keyboard-o text-xl transition-transform duration-300 hover:rotate-12"></i>
+                </div>
+                
+                <!-- 安全保护节点 -->
+                <div class="absolute bottom-10 right-10 w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-green-500/50" id="securityNode">
+                  <i class="fa fa-shield text-xl transition-transform duration-300 hover:rotate-12"></i>
+                </div>
+                
+                <!-- 存储节点 -->
+                <div class="absolute top-10 right-10 w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-blue-500/50" id="storageNode">
+                  <i class="fa fa-database text-xl transition-transform duration-300 hover:rotate-12"></i>
+                </div>
+                
+                <!-- 输出节点 -->
+                <div class="absolute bottom-10 left-10 w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-purple-500/50" id="outputNode">
+                  <i class="fa fa-arrow-right text-xl transition-transform duration-300 hover:rotate-12"></i>
+                </div>
+                
+                <!-- 数据流动动画 -->
+                <svg id="dataFlow" class="absolute top-0 left-0 w-full h-full" viewBox="0 0 400 300">
+                  <!-- 科技感网格背景 -->
+                  <pattern id="techGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(22,93,255,0.1)" stroke-width="0.5"/>
+                  </pattern>
+                  <rect width="100%" height="100%" fill="url(#techGrid)"/>
+                  
+                  <!-- 发光线条 -->
+                  <line x1="0" y1="150" x2="400" y2="150" stroke="rgba(22,93,255,0.2)" stroke-width="1" stroke-dasharray="5,5"/>
+                  <line x1="200" y1="0" x2="200" y2="300" stroke="rgba(22,93,255,0.2)" stroke-width="1" stroke-dasharray="5,5"/>
+                  
+                  <!-- 输入到处理 -->
+                  <path id="flow1" d="M70,70 C120,90 160,110 200,110" stroke="#165DFF" stroke-width="3" fill="none" stroke-dasharray="200" stroke-dashoffset="200" stroke-linecap="round"/>
+                  <circle id="dot1" cx="70" cy="70" r="4" fill="#165DFF"/>
+                  <!-- 发光效果 -->
+                  <path d="M70,70 C120,90 160,110 200,110" stroke="#165DFF" stroke-width="6" fill="none" opacity="0.2" filter="blur(2px)"/>
+                  
+                  <!-- 处理到安全 -->
+                  <path id="flow2" d="M200,140 C240,160 280,180 330,230" stroke="#4ade80" stroke-width="3" fill="none" stroke-dasharray="200" stroke-dashoffset="200" stroke-linecap="round"/>
+                  <circle id="dot2" cx="200" cy="140" r="4" fill="#4ade80"/>
+                  <!-- 发光效果 -->
+                  <path d="M200,140 C240,160 280,180 330,230" stroke="#4ade80" stroke-width="6" fill="none" opacity="0.2" filter="blur(2px)"/>
+                  
+                  <!-- 处理到存储 -->
+                  <path id="flow3" d="M200,110 C240,90 280,80 330,70" stroke="#60a5fa" stroke-width="3" fill="none" stroke-dasharray="200" stroke-dashoffset="200" stroke-linecap="round"/>
+                  <circle id="dot3" cx="200" cy="110" r="4" fill="#60a5fa"/>
+                  <!-- 发光效果 -->
+                  <path d="M200,110 C240,90 280,80 330,70" stroke="#60a5fa" stroke-width="6" fill="none" opacity="0.2" filter="blur(2px)"/>
+                  
+                  <!-- 处理到输出 -->
+                  <path id="flow4" d="M200,140 C160,160 120,180 70,230" stroke="#a78bfa" stroke-width="3" fill="none" stroke-dasharray="200" stroke-dashoffset="200" stroke-linecap="round"/>
+                  <circle id="dot4" cx="200" cy="140" r="4" fill="#a78bfa"/>
+                  <!-- 发光效果 -->
+                  <path d="M200,140 C160,160 120,180 70,230" stroke="#a78bfa" stroke-width="6" fill="none" opacity="0.2" filter="blur(2px)"/>
+                  
+                  <!-- 科技感装饰元素 -->
+                  <circle cx="200" cy="125" r="60" stroke="rgba(22,93,255,0.1)" stroke-width="1" fill="none" class="animate-pulse-slow"/>
+                  <circle cx="200" cy="125" r="80" stroke="rgba(22,93,255,0.05)" stroke-width="1" fill="none" class="animate-pulse-slow" style="animation-delay: 1s;"/>
+                  <circle cx="200" cy="125" r="100" stroke="rgba(22,93,255,0.03)" stroke-width="1" fill="none" class="animate-pulse-slow" style="animation-delay: 2s;"/>
+                  
+                  <!-- 数据节点装饰 -->
+                  <circle cx="70" cy="70" r="20" stroke="rgba(22,93,255,0.1)" stroke-width="1" fill="none" class="animate-pulse-slow"/>
+                  <circle cx="330" cy="230" r="20" stroke="rgba(74,222,128,0.1)" stroke-width="1" fill="none" class="animate-pulse-slow" style="animation-delay: 0.5s;"/>
+                  <circle cx="330" cy="70" r="20" stroke="rgba(96,165,250,0.1)" stroke-width="1" fill="none" class="animate-pulse-slow" style="animation-delay: 1s;"/>
+                  <circle cx="70" cy="230" r="20" stroke="rgba(167,139,255,0.1)" stroke-width="1" fill="none" class="animate-pulse-slow" style="animation-delay: 1.5s;"/>
+                </svg>
+                
+                <!-- 状态指示器 -->
+                <div class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-gray-800/80 px-4 py-1 rounded-full text-xs text-gray-300 flex items-center gap-2 transition-all duration-300 hover:bg-gray-800/90 hover:text-white" id="statusIndicator">
+                  <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                  <span data-lang="securityProtection">安全保护中</span>
+                </div>
+                
+                <!-- 节点标签 -->
+                <div class="absolute top-28 left-32 text-xs text-gray-300 bg-gray-800/60 px-2 py-1 rounded-full" data-lang="dataInput">数据输入</div>
+                <div class="absolute bottom-28 right-32 text-xs text-gray-300 bg-gray-800/60 px-2 py-1 rounded-full" data-lang="securityProtection">安全保护</div>
+                <div class="absolute top-28 right-32 text-xs text-gray-300 bg-gray-800/60 px-2 py-1 rounded-full" data-lang="localStorage">本地存储</div>
+                <div class="absolute bottom-28 left-32 text-xs text-gray-300 bg-gray-800/60 px-2 py-1 rounded-full" data-lang="dataOutput">数据输出</div>
+              </div>
+            </div>
+            <div class="mt-4 text-center text-gray-400 hover:text-gray-300 transition-colors duration-300">
+              <p data-lang="workingPrincipleVisualization">常数空间工作原理可视化演示</p>
+            </div>
+          </div>
+          
+          <!-- 概念说明 -->
+          <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700">
+            <h3 class="text-xl font-semibold mb-4 text-white" data-lang="coreAdvantages">核心优势</h3>
+            
+            <div class="space-y-3">
+              <div class="bg-gray-700/50 rounded-xl p-3 border border-gray-600 flex items-start gap-3">
+                <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
+                  <i class="fa fa-shield"></i>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-primary" data-lang="coreAdvantageLocalProcessing">本地处理</h4>
+                  <p class="text-gray-300 text-sm" data-lang="coreAdvantageLocalProcessingDesc">所有数据仅在本地设备处理，不上传到任何服务器</p>
+                </div>
+              </div>
+              
+              <div class="bg-gray-700/50 rounded-xl p-3 border border-gray-600 flex items-start gap-3">
+                <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
+                  <i class="fa fa-lock"></i>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-primary" data-lang="coreAdvantagePrivacyProtection">隐私保护</h4>
+                  <p class="text-gray-300 text-sm" data-lang="coreAdvantagePrivacyProtectionDesc">绝不窃取、存储或滥用任何用户隐私数据</p>
+                </div>
+              </div>
+              
+              <div class="bg-gray-700/50 rounded-xl p-3 border border-gray-600 flex items-start gap-3">
+                <div class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
+                  <i class="fa fa-bolt"></i>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-primary" data-lang="coreAdvantageEfficientInput2">高效输入</h4>
+                  <p class="text-gray-300 text-sm" data-lang="coreAdvantageEfficientInput2Desc">智能联想功能，提高输入效率，减少重复操作</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 概念解释 -->
+        <div class="mt-12 bg-gray-800/50 rounded-2xl p-6 border border-gray-700">
+          <h3 class="text-xl font-semibold mb-4 text-white" data-lang="conceptExplanation">概念说明</h3>
+          <p class="text-gray-300" data-lang="conceptDescription">
+            常数空间通过本地处理技术，将所有数据操作限制在用户设备上完成，无需依赖云端服务器。
+            这种设计确保了数据安全和隐私保护，同时提高了操作响应速度。
+            我们致力于在保障用户数据安全的前提下，提供高效、流畅的输入体验。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 核心概念板块 -->
+    <section class="px-4 md:px-8 py-16 md:py-24 bg-dark/50 my-8">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold text-white text-center mb-16 relative">
+          <span class="inline-block text-gradient relative z-10">
+            <i class="fa fa-magic mr-3 text-primary"></i>
+            <span data-lang="animationEffects">动画效果</span>
+          </span>
+          <span class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-primary rounded-full"></span>
+        </h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- 动画预览区域 -->
+          <div class="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
+            <h3 class="text-lg font-semibold mb-3 text-white" data-lang="animationPreview">动画预览</h3>
+            <div class="h-64 bg-gray-900 rounded-lg flex items-center justify-center">
+              <div id="animationElement" class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                <span class="text-lg">A</span>
+              </div>
+            </div>
+            <p class="mt-3 text-center text-sm text-gray-400" data-lang="realTimeAnimationPreview">实时预览动画效果</p>
+          </div>
+          
+          <!-- 动画控制区域 -->
+          <div class="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
+            <h3 class="text-lg font-semibold mb-3 text-white" data-lang="animationControl">动画控制</h3>
+            
+            <!-- 动画类型选择 -->
+            <div class="mb-4">
+              <label class="block text-gray-300 mb-2 text-sm" data-lang="selectAnimationType">选择动画类型</label>
+              <div class="grid grid-cols-3 gap-2">
+                <button onclick="setAnimation('bounce')" class="animation-btn bg-gray-700 hover:bg-primary text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm transition-colors">
+                  <span data-lang="animationBounce">弹跳</span>
+                </button>
+                <button onclick="setAnimation('pulse')" class="animation-btn bg-gray-700 hover:bg-primary text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm transition-colors">
+                  <span data-lang="animationPulse">脉冲</span>
+                </button>
+                <button onclick="setAnimation('spin')" class="animation-btn bg-gray-700 hover:bg-primary text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm transition-colors">
+                  <span data-lang="animationSpin">旋转</span>
+                </button>
+                <button onclick="setAnimation('fade')" class="animation-btn bg-gray-700 hover:bg-primary text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm transition-colors">
+                  <span data-lang="animationFade">淡入淡出</span>
+                </button>
+                <button onclick="setAnimation('slide')" class="animation-btn bg-gray-700 hover:bg-primary text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm transition-colors">
+                  <span data-lang="animationSlide">滑动</span>
+                </button>
+                <button onclick="setAnimation('scale')" class="animation-btn bg-gray-700 hover:bg-primary text-gray-300 hover:text-white px-3 py-2 rounded-lg text-sm transition-colors">
+                  <span data-lang="animationScale">缩放</span>
+                </button>
+              </div>
+            </div>
+            
+            <!-- 动画速度调节 -->
+            <div class="mb-4">
+              <label class="block text-gray-300 mb-2 text-sm" data-lang="animationSpeed">动画速度</label>
+              <input type="range" id="animationSpeed" min="100" max="2000" value="1000" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+              <div class="flex justify-between mt-1 text-xs text-gray-400">
+                <span data-lang="fast">快</span>
+                <span data-lang="slow">慢</span>
+              </div>
+            </div>
+            
+            <!-- 控制按钮 -->
+            <div class="flex gap-2">
+              <button id="startAnimation" class="flex-1 bg-gradient-primary text-white px-3 py-2 rounded-lg btn-effect text-sm">
+                <i class="fa fa-play mr-1"></i> <span data-lang="start">开始</span>
+              </button>
+              <button id="stopAnimation" class="flex-1 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white px-3 py-2 rounded-lg btn-effect text-sm">
+                <i class="fa fa-stop mr-1"></i> <span data-lang="stop">停止</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 动画效果说明 -->
+        <div class="mt-6 bg-gray-800/50 rounded-lg p-3 border border-gray-700">
+          <h3 class="text-base font-semibold mb-2 text-white" data-lang="animationEffectDescription">动画效果说明</h3>
+          <p class="text-gray-300 text-xs" data-lang="animationEffectDescriptionText">
+            常数空间提供多种动画效果，可用于增强用户界面的交互体验。您可以通过上方的控制面板选择不同的动画类型和调节速度，实时预览动画效果。
+            这些动画效果可以应用于按钮、卡片、导航菜单等各种界面元素，为用户带来更加生动、直观的视觉反馈。
+          </p>
+        </div>
+        
+        <!-- 立即尝试按钮 -->
+        <div class="mt-8 text-center">
+          <button class="inline-block bg-gradient-primary text-white rounded-full px-8 py-3 btn-effect flex items-center gap-2 text-lg font-semibold hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300" onclick="window.location.href='tools.html#tools'; setTimeout(() => { if (typeof openTool === 'function') openTool('animationTool'); }, 500);">
+            <i class="fa fa-rocket"></i>
+            <span data-lang="tryNow">立即尝试</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  
+  <!-- 底部栏 - 社交图标+版权年份，融合X/YouTube形态 -->
+  <footer class="bg-gray-900 border-t border-gray-800 py-4 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <!-- 社交图标 -->
+      <div class="flex justify-center gap-3 mb-3">
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-hover text-gray-400 text-base w-8 h-8 rounded-full flex items-center justify-center border border-gray-700">
+          <i class="fa fa-twitter"></i> <!-- X平台图标 -->
+        </a>
+        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-hover text-gray-400 text-base w-8 h-8 rounded-full flex items-center justify-center border border-gray-700">
+          <i class="fa fa-youtube-play"></i> <!-- YouTube图标 -->
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-hover text-gray-400 text-base w-8 h-8 rounded-full flex items-center justify-center border border-gray-700">
+          <i class="fa fa-instagram"></i> <!-- Instagram图标 -->
+        </a>
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-hover text-gray-400 text-base w-8 h-8 rounded-full flex items-center justify-center border border-gray-700">
+          <i class="fa fa-facebook"></i> <!-- Facebook图标 -->
+        </a>
+      </div>
+      <!-- 底部链接+版权 -->
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-2 text-gray-500 text-xs">
+        <a href="#" onclick="showTerms()" class="link-grad" data-lang="termsLink">服务条款</a>
+        <a href="#" onclick="showPrivacy()" class="link-grad" data-lang="privacyLink">隐私申明</a>
+        <span data-lang="copyright">© 2026 常数空间 版权所有</span>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- 隐私声明弹窗 - 1秒后弹出，带滚动条，参考X平台 -->
+  <div id="privacyModal" class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center px-4 hidden modal-fade-in">
+    <div class="bg-gray-900 rounded-2xl w-full max-w-2xl max-h-[90vh] sm:max-h-[80vh] flex flex-col border border-gray-700">
+      <!-- 弹窗标题 -->
+      <div class="p-4 sm:p-6 border-b border-gray-800 flex justify-between items-center">
+        <h3 class="text-lg sm:text-xl font-bold text-white" data-lang="privacyModalTitle">隐私声明</h3>
+        <button class="close-modal text-gray-400 hover:text-white text-xl btn-effect">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <!-- 弹窗内容 - 带独立滚动条 -->
+      <div class="p-4 sm:p-6 overflow-y-auto flex-grow text-gray-300 leading-relaxed text-sm sm:text-base" id="privacyModalContent">
+        <!-- 内容将通过JavaScript动态填充 -->
+      </div>
+      <!-- 弹窗按钮 -->
+      <div class="p-4 sm:p-6 border-t border-gray-800 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end">
+        <button id="rejectBtn" class="px-4 sm:px-6 py-2 sm:py-3 bg-gray-800 text-gray-300 rounded-lg btn-effect hover:bg-gray-700 hover:text-white w-full sm:w-auto" data-lang="reject">
+          拒绝
+        </button>
+        <button id="agreeBtn" class="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-primary text-white rounded-lg btn-effect w-full sm:w-auto" data-lang="agree">
+          同意
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 服务条款弹窗 -->
+  <div id="termsModal" class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center px-4 hidden modal-fade-in">
+    <div class="bg-gray-900 rounded-2xl w-full max-w-2xl max-h-[90vh] sm:max-h-[80vh] flex flex-col border border-gray-700">
+      <!-- 弹窗标题 -->
+      <div class="p-4 sm:p-6 border-b border-gray-800 flex justify-between items-center">
+        <h3 class="text-lg sm:text-xl font-bold text-white" data-lang="termsModalTitle">服务条款</h3>
+        <button class="close-modal text-gray-400 hover:text-white text-xl btn-effect">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <!-- 弹窗内容 - 带独立滚动条 -->
+      <div class="p-4 sm:p-6 overflow-y-auto flex-grow text-gray-300 leading-relaxed text-sm sm:text-base" id="termsModalContent">
+        <!-- 内容将通过JavaScript动态填充 -->
+      </div>
+      <!-- 弹窗按钮 -->
+      <div class="p-4 sm:p-6 border-t border-gray-800 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end">
+        <button class="close-modal px-4 sm:px-6 py-2 sm:py-3 bg-gray-800 text-gray-300 rounded-lg btn-effect hover:bg-gray-700 hover:text-white w-full sm:w-auto" data-lang="close">
+          关闭
+        </button>
+        <button class="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-primary text-white rounded-lg btn-effect w-full sm:w-auto" data-lang="agree">
+          同意
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 联系我们弹窗 -->
+  <div id="contactModal" class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center px-4 hidden modal-fade-in">
+    <div class="bg-gray-900 rounded-2xl w-full max-w-md max-h-[90vh] sm:max-h-[80vh] flex flex-col border border-gray-700">
+      <!-- 弹窗标题 -->
+      <div class="p-4 sm:p-6 border-b border-gray-800 flex justify-between items-center">
+        <h3 class="text-lg sm:text-xl font-bold text-white" data-lang="contactModalTitle">联系我们</h3>
+        <button class="close-modal text-gray-400 hover:text-white text-xl btn-effect">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <!-- 弹窗内容 -->
+      <div class="p-4 sm:p-6 flex-grow text-gray-300 leading-relaxed text-sm sm:text-base">
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="text-primary text-xl mt-1">
+              <i class="fa fa-envelope"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold mb-2" data-lang="emailAddress">邮箱地址</h4>
+              <p class="text-gray-300">jonessj893@gmail.com</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="text-primary text-xl mt-1">
+              <i class="fa fa-info-circle"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold mb-2" data-lang="contactInfo">联系信息</h4>
+              <p class="text-gray-300" data-lang="contactDescription">
+                如有任何问题或建议，欢迎通过以上邮箱与我们联系，我们将尽快回复您。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 弹窗按钮 -->
+      <div class="p-4 sm:p-6 border-t border-gray-800 flex justify-end">
+        <button class="close-modal px-6 py-3 bg-gray-800 text-gray-300 rounded-lg btn-effect hover:bg-gray-700 hover:text-white" data-lang="close">
+          关闭
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript 交互逻辑 -->
+  <script>
+    // 获取DOM元素
+    const privacyModal = document.getElementById('privacyModal');
+    const termsModal = document.getElementById('termsModal');
+    const contactModal = document.getElementById('contactModal');
+    const agreeBtn = document.getElementById('agreeBtn');
+    const rejectBtn = document.getElementById('rejectBtn');
+    const closeButtons = document.querySelectorAll('.close-modal');
+
+    // 1秒后弹出隐私声明弹窗
+    setTimeout(() => {
+      privacyModal.classList.remove('hidden');
+      // 禁止页面滚动
+      document.body.style.overflow = 'hidden';
+    }, 1000);
+
+    // 同意按钮 - 关闭弹窗，恢复页面滚动
+    agreeBtn.addEventListener('click', () => {
+      privacyModal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      // 可添加后续逻辑，如存储用户同意状态
+      localStorage.setItem('privacyAgreed', 'true');
+    });
+
+    // 拒绝按钮 - 提示并刷新页面（或跳转到空白页）
+    rejectBtn.addEventListener('click', () => {
+      alert('您拒绝了隐私声明，将无法使用常数空间服务');
+      window.location.reload();
+    });
+
+    // 关闭按钮 - 仅关闭弹窗，不记录同意状态（再次进入仍会弹出）
+    closeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        privacyModal.classList.add('hidden');
+        termsModal.classList.add('hidden');
+        contactModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      });
+    });
+
+    // 显示服务条款弹窗
+    function showTerms() {
+      termsModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 显示隐私声明弹窗
+    function showPrivacy() {
+      privacyModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 显示联系我们弹窗
+    function showContact() {
+      contactModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+
+
+    // 语言选择功能
+    const languageBtn = document.getElementById('languageBtn');
+    const languageDropdown = document.getElementById('languageDropdown');
+    const currentLanguageElement = document.getElementById('currentLanguage');
+    let currentLanguage = localStorage.getItem('appLanguage') || 'zh';
+
+
+
+    // 多语言文本定义
+    const translations = {
+      zh: {
+        subtitle: '高效UI输入平台，安全无隐私窃取',
+        productIntroTitle: '常数空间 - 产品简介',
+        productIntro: '常数空间是一款专注于轻量高效的UI输入工具平台，为用户提供简洁、流畅的输入体验。我们严格遵守隐私保护规范，绝不窃取、存储或滥用任何用户隐私数据，所有输入内容仅在本地处理，保障用户数据安全与隐私权益。',
+        privacyStatement: '绝不窃取、存储或滥用任何用户隐私数据',
+        termsLink: '服务条款',
+        privacyLink: '隐私申明',
+        contactEmail: '官方邮箱',
+        copyright: '© 2026 常数空间 版权所有',
+        backToHome: '返回首页',
+        privacyModalTitle: '隐私声明',
+        termsModalTitle: '服务条款',
+        agree: '同意',
+        reject: '拒绝',
+        close: '关闭',
+        welcome: '常数空间',
+        backToLobby: '返回大厅',
+        termsOfService: '服务条款',
+        privacyPolicy: '隐私申明',
+        contactUs: '联系我们',
+        contactModalTitle: '联系我们',
+        emailAddress: '邮箱地址',
+        contactInfo: '联系信息',
+        contactDescription: '如有任何问题或建议，欢迎通过以上邮箱与我们联系，我们将尽快回复您。',
+        slogan: '探索无限可能的工具乐园',
+        coreFeatures: '核心功能',
+        featureLocalProcessing: '本地处理',
+        featureLocalProcessingDesc: '所有输入内容仅在本地设备处理，不会上传至任何服务器，确保数据安全',
+        featureEfficientInput: '高效输入',
+        featureEfficientInputDesc: '简洁流畅的输入体验，智能联想功能，提高输入效率',
+        featureMultilingual: '多语言支持',
+        featureMultilingualDesc: '支持中文和英文切换，满足不同用户的语言需求',
+        featureSecurity: '安全保障',
+        featureSecurityDesc: '采用多层安全防护措施，防止XSS攻击和其他安全威胁',
+        featureResponsive: '响应式设计',
+        featureResponsiveDesc: '适配各种设备屏幕，在手机、平板和电脑上都能完美使用',
+        featurePersonalization: '个性化设置',
+        featurePersonalizationDesc: '支持自定义主题、快捷键等设置，打造专属输入体验',
+        comparisonTitle: '优势对比',
+        comparisonFeature: '功能特性',
+        comparisonOurProduct: '常数空间',
+        comparisonTraditional: '传统输入工具',
+        comparisonPrivacy: '数据隐私保护',
+        comparisonPrivacyOur: '本地处理，不上传',
+        comparisonPrivacyTraditional: '可能上传用户数据',
+        comparisonEfficiency: '输入效率',
+        comparisonEfficiencyOur: '智能联想，高效输入',
+        comparisonEfficiencyTraditional: '基础输入功能',
+        comparisonMultilingual: '多语言支持',
+        comparisonMultilingualOur: '支持中英文切换',
+        comparisonMultilingualTraditional: '可能仅支持单一语言',
+        comparisonResponsive: '响应式设计',
+        comparisonResponsiveOur: '适配各种设备',
+        comparisonResponsiveTraditional: '可能仅支持特定设备',
+        comparisonSecurity: '安全性',
+        comparisonSecurityOur: '多层安全防护',
+        comparisonSecurityTraditional: '基础安全措施',
+        testimonialsTitle: '用户评价',
+        testimonial1: '"常数空间真的很棒！输入体验流畅，而且不用担心数据隐私问题。多语言支持也很实用，推荐给大家。"',
+        testimonial1Name: '张先生',
+        testimonial1Title: '软件工程师',
+        testimonial2: '"作为一名翻译，我经常需要在中英文之间切换，常数空间的多语言支持功能非常贴心，输入效率大大提高。"',
+        testimonial2Name: '李女士',
+        testimonial2Title: '翻译',
+        testimonial3: '"隐私保护做得很好，所有数据都在本地处理，不用担心信息泄露。界面简洁美观，使用起来非常顺手。"',
+        testimonial3Name: '王先生',
+        testimonial3Title: '数据分析师',
+        faqTitle: '常见问题',
+        faq1Question: '常数空间如何保护我的隐私？',
+        faq1Answer: '常数空间采用本地处理机制，所有输入内容仅在您的设备上处理，不会上传至任何服务器。我们不会收集、存储或分享您的任何个人数据，确保您的隐私安全。',
+        faq2Question: '常数空间支持哪些语言？',
+        faq2Answer: '目前常数空间支持中文和英文两种语言，您可以在设置中随时切换语言。我们计划在未来版本中添加更多语言支持。',
+        faq3Question: '常数空间可以在哪些设备上使用？',
+        faq3Answer: '常数空间采用响应式设计，支持在各种设备上使用，包括电脑、平板和手机。只要您的设备有浏览器，就可以访问并使用常数空间。',
+        faq4Question: '常数空间是免费的吗？',
+        faq4Answer: '是的，常数空间是完全免费的。我们致力于为用户提供高质量的输入工具，不收取任何费用，也不会在界面中显示广告。',
+        faq5Question: '如何联系常数空间团队？',
+        faq5Answer: '您可以通过官方邮箱 jonessj893@gmail.com 联系我们，或者在网站底部点击"联系我们"按钮发送消息。我们会在24小时内回复您的问题。',
+        techFeaturesTitle: '技术特点',
+        techModernFrontend: '现代前端技术',
+        techModernFrontendDesc: '采用HTML5、CSS3和JavaScript ES6+开发，使用Tailwind CSS实现响应式设计，确保在各种设备上的良好体验',
+        techModularArchitecture: '模块化架构',
+        techModularArchitectureDesc: '采用模块化设计，代码结构清晰，易于维护和扩展，为未来功能升级做好准备',
+        techPerformanceOptimization: '性能优化',
+        techPerformanceOptimizationDesc: '经过精心优化，加载速度快，运行流畅，即使在低配置设备上也能良好运行',
+        techSecurityAssurance: '安全保障',
+        techSecurityAssuranceDesc: '采用多层安全防护措施，防止XSS攻击和其他安全威胁，确保用户数据安全',
+        coreAdvantagePrivacy: '隐私保护',
+        coreAdvantagePrivacyDesc: '绝不窃取、存储或滥用任何用户隐私数据，所有输入内容仅在本地处理',
+        coreAdvantageEfficiency: '高效输入',
+        coreAdvantageEfficiencyDesc: '简洁流畅的输入体验，让您的操作更加高效便捷',
+        startUsing: '开始使用',
+        learnMore: '了解更多',
+        tryNow: '立即尝试',
+        bottomDescription: '常数空间致力于为用户提供安全、高效的输入体验，我们始终将用户隐私放在首位，所有操作均在本地设备完成，确保您的数据安全与隐私权益。',
+        coreConceptTitle: '常数空间核心概念',
+        workingPrincipleDemo: '工作原理演示',
+        localProcessing: '本地处理',
+        systemRunning: '系统运行中',
+        workingPrincipleVisualization: '常数空间工作原理可视化演示',
+        coreAdvantages: '核心优势',
+        coreAdvantageLocalProcessing: '本地处理',
+        coreAdvantageLocalProcessingDesc: '所有数据仅在本地设备处理，不上传到任何服务器',
+        coreAdvantagePrivacyProtection: '隐私保护',
+        coreAdvantagePrivacyProtectionDesc: '绝不窃取、存储或滥用任何用户隐私数据',
+        coreAdvantageEfficientInput2: '高效输入',
+        coreAdvantageEfficientInput2Desc: '智能联想功能，提高输入效率，减少重复操作',
+        conceptExplanation: '概念说明',
+        conceptDescription: '常数空间通过本地处理技术，将所有数据操作限制在用户设备上完成，无需依赖云端服务器。这种设计确保了数据安全和隐私保护，同时提高了操作响应速度。我们致力于在保障用户数据安全的前提下，提供高效、流畅的输入体验。',
+        animationEffects: '动画效果',
+        animationPreview: '动画预览',
+        realTimeAnimationPreview: '实时预览动画效果',
+        animationControl: '动画控制',
+        selectAnimationType: '选择动画类型',
+        animationBounce: '弹跳',
+        animationPulse: '脉冲',
+        animationSpin: '旋转',
+        animationFade: '淡入淡出',
+        animationSlide: '滑动',
+        animationScale: '缩放',
+        comparisonSummary: '对比总结',
+        comparisonSummaryText: '通过以上对比可以看出，常数空间在数据隐私保护、输入效率、多语言支持、响应式设计和安全性等核心方面都具有明显优势。我们致力于为用户提供更安全、更高效、更个性化的输入体验，让每一次输入都成为一种享受。',
+        futurePlanning: '未来规划',
+        moreLanguageSupport: '更多语言支持',
+        moreLanguageSupportDesc: '添加日语、韩语、法语、德语等多种语言支持，满足全球用户的需求',
+        advancedSearchFeature: '高级搜索功能',
+        advancedSearchFeatureDesc: '添加高级搜索选项，支持精确匹配、排除关键词等高级搜索功能',
+        customThemes: '自定义主题',
+        customThemesDesc: '允许用户创建和分享自定义主题，打造个性化的输入界面',
+        browserExtensions: '浏览器扩展',
+        browserExtensionsDesc: '开发Chrome、Firefox等浏览器扩展，让用户在任何网页上都能使用常数空间',
+        securityProtection: '安全保护中',
+        dataInput: '数据输入',
+        localStorage: '本地存储',
+        dataOutput: '数据输出',
+        start: '开始',
+        stop: '停止',
+        fast: '快',
+        slow: '慢',
+        animationSpeed: '动画速度',
+        animationEffectDescription: '动画效果说明',
+        animationEffectDescriptionText: '常数空间提供多种动画效果，可用于增强用户界面的交互体验。您可以通过上方的控制面板选择不同的动画类型和调节速度，实时预览动画效果。这些动画效果可以应用于按钮、卡片、导航菜单等各种界面元素，为用户带来更加生动、直观的视觉反馈。',
+        futurePlanningDesc: '常数空间正在不断进化，我们规划了一系列激动人心的功能和改进，为用户带来更加出色的体验',
+        quarter2026Q2: '2026 Q2',
+        comingSoon: '即将推出',
+        quarter2026Q3: '2026 Q3',
+        inDevelopment: '开发中',
+        quarter2026Q4: '2026 Q4',
+        planned: '计划中',
+        quarter2027Q1: '2027 Q1',
+        roadmap: '路线图',
+        joinJourney: '加入我们的旅程',
+        privacyModalContent: `
+          <p class="mb-4 text-accent font-medium text-lg">重要提示：使用常数空间前，请您仔细阅读以下隐私声明，点击「同意」即表示您接受本声明全部内容。常数空间是常数空间。</p>
+          <p class="mb-4"><strong class="text-white">核心原则：</strong>常数空间始终将用户隐私放在首位，<span class="font-medium">绝不窃取、收集、存储、使用或转让任何用户隐私数据</span>，所有用户在常数空间的操作行为及输入内容均仅在本地设备处理，不会上传至任何服务器，您的所有数据均由您自行掌控。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">1. 数据收集政策</h4>
+          <p class="mb-4">常数空间不会主动收集您的任何个人身份信息（姓名、手机号、邮箱、身份证号、住址等）、设备信息（设备型号、系统版本、IP地址等）、行为信息（浏览记录、操作记录、输入内容等）及其他任何可识别个人身份的隐私数据。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">2. 数据使用规则</h4>
+          <p class="mb-4">因常数空间不收集任何用户数据，故不存在数据使用、分析、共享、转让、披露等行为。任何第三方均无法通过常数空间获取您的任何相关信息，我们也不会向任何机构、企业或个人提供用户数据。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">3. 本地数据处理</h4>
+          <p class="mb-4">您在常数空间的所有输入内容、操作设置均仅存储在您的本地设备中，常数空间不会对该类数据进行任何形式的上传或同步。您可随时删除本地存储的相关数据，操作权完全归属于您。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">4. 安全保障措施</h4>
+          <p class="mb-4">我们采用多层安全防护技术，保障常数空间的运行安全，防止任何未授权的访问、篡改、攻击等行为，确保常数空间不会成为窃取用户数据的渠道。同时，我们会持续更新安全策略，及时修复潜在安全漏洞。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">5. 隐私声明的遵守</h4>
+          <p class="mb-4">我们严格遵守《中华人民共和国个人信息保护法》《网络安全法》等相关法律法规，恪守隐私保护承诺，若因法律法规更新需要调整本声明，我们将及时在平台发布更新版本，并保留原有核心隐私保护原则。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">6. 用户权利</h4>
+          <p class="mb-6">您有权随时查看本隐私声明的最新版本，有权拒绝接受本声明（拒绝后将无法使用常数空间服务），有权随时停止使用常数空间并删除本地相关数据。若您发现常数空间存在违反本隐私声明的行为，可随时向我们反馈。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">7. 联系方式</h4>
+          <p>官方邮箱：jonessj893@gmail.com</p>
+        `,
+        termsModalContent: `
+          <p class="mb-4 text-accent font-medium text-lg">重要提示：使用常数空间前，请您仔细阅读以下服务条款，点击「同意」即表示您接受本条款全部内容。</p>
+          <p class="mb-4">欢迎使用常数空间（以下简称"常数空间"）提供的服务，本服务由常数空间运营团队（以下简称"我们"）提供。使用常数空间服务，即表示您同意接受本服务条款的全部内容，若您不同意，请勿使用本服务。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">1. 服务使用权限</h4>
+          <p class="mb-4">我们授予您非独占、不可转让的有限权限，以按照本条款使用常数空间服务。您承诺仅将本服务用于合法目的，不得利用本服务从事任何违法、违规或损害他人合法权益的行为。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">2. 用户行为规范</h4>
+          <p class="mb-4">您在使用本服务时，不得进行任何干扰、破坏常数空间正常运行的行为，包括但不限于恶意攻击、植入病毒、滥用系统资源等；不得传播违法、色情、暴力、诽谤等不良信息。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">3. 服务变更与终止</h4>
+          <p class="mb-4">我们有权根据业务发展需要，随时调整、暂停或终止本服务的全部或部分功能，且无需提前通知。若因服务终止给您造成损失，我们不承担任何赔偿责任（法定情形除外）。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">4. 免责声明</h4>
+          <p class="mb-4">常数空间服务按"现状"提供，我们不保证服务的不间断、无错误、无漏洞。对于因使用或无法使用本服务而产生的任何直接、间接、偶然的损失，我们不承担赔偿责任，除非该损失是因我们的故意或重大过失造成。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">5. 条款变更</h4>
+          <p class="mb-6">我们有权随时修改本服务条款，修改后的条款将在常数空间发布后立即生效。若您继续使用本服务，即表示您接受修改后的条款；若您不同意，应立即停止使用本服务。</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">6. 联系方式</h4>
+          <p>官方邮箱：jonessj893@gmail.com</p>
+        `
+      },
+      en: {
+        subtitle: 'Efficient UI Input Platform, Secure and No Privacy Theft',
+        productIntroTitle: 'Constant Space - Product Introduction',
+        productIntro: 'Constant Space is a lightweight and efficient UI input tool platform, providing users with a simple and smooth input experience. We strictly adhere to privacy protection standards and never steal, store, or misuse any user privacy data. All input content is processed locally, ensuring user data security and privacy rights.',
+        privacyStatement: 'Never steal, store, or misuse any user privacy data',
+        termsLink: 'Terms of Service',
+        privacyLink: 'Privacy Policy',
+        contactEmail: 'Official Email:',
+        copyright: '© 2026 Constant Space All Rights Reserved',
+        backToHome: 'Back to Home',
+        privacyModalTitle: 'Privacy Statement',
+        termsModalTitle: 'Terms of Service',
+        agree: 'Agree',
+        reject: 'Reject',
+        close: 'Close',
+        welcome: 'Constant Space',
+        backToLobby: 'Back to Lobby',
+        termsOfService: 'Terms of Service',
+        privacyPolicy: 'Privacy Policy',
+        contactUs: 'Contact Us',
+        contactModalTitle: 'Contact Us',
+        emailAddress: 'Email Address',
+        contactInfo: 'Contact Information',
+        contactDescription: 'If you have any questions or suggestions, please feel free to contact us through the above email address. We will reply to you as soon as possible.',
+        slogan: 'Explore the Infinite Possibilities of Tool Paradise',
+        coreFeatures: 'Core Features',
+        featureLocalProcessing: 'Local Processing',
+        featureLocalProcessingDesc: 'All input content is processed only on local devices and will not be uploaded to any server, ensuring data security',
+        featureEfficientInput: 'Efficient Input',
+        featureEfficientInputDesc: 'Simple and smooth input experience with intelligent联想功能 to improve input efficiency',
+        featureMultilingual: 'Multilingual Support',
+        featureMultilingualDesc: 'Support Chinese and English switching to meet the language needs of different users',
+        featureSecurity: 'Security Assurance',
+        featureSecurityDesc: 'Adopt multiple security protection measures to prevent XSS attacks and other security threats',
+        featureResponsive: 'Responsive Design',
+        featureResponsiveDesc: 'Adapt to various device screens and work perfectly on mobile phones, tablets and computers',
+        featurePersonalization: 'Personalized Settings',
+        featurePersonalizationDesc: 'Support custom themes, shortcuts and other settings to create exclusive input experience',
+        comparisonTitle: 'Advantage Comparison',
+        comparisonFeature: 'Feature',
+        comparisonOurProduct: 'Constant Space',
+        comparisonTraditional: 'Traditional Input Tools',
+        comparisonPrivacy: 'Data Privacy Protection',
+        comparisonPrivacyOur: 'Local processing, no upload',
+        comparisonPrivacyTraditional: 'May upload user data',
+        comparisonEfficiency: 'Input Efficiency',
+        comparisonEfficiencyOur: 'Intelligent association, efficient input',
+        comparisonEfficiencyTraditional: 'Basic input functions',
+        comparisonMultilingual: 'Multilingual Support',
+        comparisonMultilingualOur: 'Support Chinese and English switching',
+        comparisonMultilingualTraditional: 'May only support single language',
+        comparisonResponsive: 'Responsive Design',
+        comparisonResponsiveOur: 'Adapt to various devices',
+        comparisonResponsiveTraditional: 'May only support specific devices',
+        comparisonSecurity: 'Security',
+        comparisonSecurityOur: 'Multi-layer security protection',
+        comparisonSecurityTraditional: 'Basic security measures',
+        testimonialsTitle: 'User Testimonials',
+        testimonial1: '"Constant Space is really great! The input experience is smooth, and you don\'t have to worry about data privacy issues. Multilingual support is also very practical, recommended to everyone."',
+        testimonial1Name: 'Mr. Zhang',
+        testimonial1Title: 'Software Engineer',
+        testimonial2: '"As a translator, I often need to switch between Chinese and English. The multilingual support feature of Constant Space is very thoughtful, and input efficiency is greatly improved."',
+        testimonial2Name: 'Ms. Li',
+        testimonial2Title: 'Translator',
+        testimonial3: '"Privacy protection is well done, all data is processed locally, no need to worry about information leakage. The interface is simple and beautiful, very handy to use."',
+        testimonial3Name: 'Mr. Wang',
+        testimonial3Title: 'Data Analyst',
+        faqTitle: 'Frequently Asked Questions',
+        faq1Question: 'How does Constant Space protect my privacy?',
+        faq1Answer: 'Constant Space adopts a local processing mechanism. All input content is processed only on your device and will not be uploaded to any server. We do not collect, store or share any of your personal data to ensure your privacy is secure.',
+        faq2Question: 'Which languages does Constant Space support?',
+        faq2Answer: 'Currently, Constant Space supports two languages: Chinese and English. You can switch languages at any time in the settings. We plan to add support for more languages in future versions.',
+        faq3Question: 'On which devices can Constant Space be used?',
+        faq3Answer: 'Constant Space adopts a responsive design and supports use on various devices, including computers, tablets and mobile phones. As long as your device has a browser, you can access and use Constant Space.',
+        faq4Question: 'Is Constant Space free?',
+        faq4Answer: 'Yes, Constant Space is completely free. We are committed to providing users with high-quality input tools without charging any fees or displaying ads in the interface.',
+        faq5Question: 'How to contact the Constant Space team?',
+        faq5Answer: 'You can contact us through the official email jonessj893@gmail.com, or click the "Contact Us" button at the bottom of the website to send a message. We will reply to your questions within 24 hours.',
+        techFeaturesTitle: 'Technical Features',
+        techModernFrontend: 'Modern Frontend Technology',
+        techModernFrontendDesc: 'Developed with HTML5, CSS3 and JavaScript ES6+, using Tailwind CSS to implement responsive design, ensuring a good experience on various devices',
+        techModularArchitecture: 'Modular Architecture',
+        techModularArchitectureDesc: 'Adopting modular design with clear code structure, easy to maintain and expand, ready for future feature upgrades',
+        techPerformanceOptimization: 'Performance Optimization',
+        techPerformanceOptimizationDesc: 'Carefully optimized for fast loading speed and smooth operation, even on low-config devices',
+        techSecurityAssurance: 'Security Assurance',
+        techSecurityAssuranceDesc: 'Adopting multiple security protection measures to prevent XSS attacks and other security threats, ensuring user data security',
+        coreAdvantagePrivacy: 'Privacy Protection',
+        coreAdvantagePrivacyDesc: 'Never steal, store or misuse any user privacy data. All input content is processed only locally.',
+        coreAdvantageEfficiency: 'Efficient Input',
+        coreAdvantageEfficiencyDesc: 'Simple and smooth input experience, making your operations more efficient and convenient',
+        startUsing: 'Start Using',
+        learnMore: 'Learn More',
+        tryNow: 'Try Now',
+        bottomDescription: 'Constant Space is committed to providing users with a safe and efficient input experience. We always put user privacy first, and all operations are completed on local devices to ensure your data security and privacy rights.',
+        coreConceptTitle: 'Constant Space Core Concept',
+        workingPrincipleDemo: 'Working Principle Demo',
+        localProcessing: 'Local Processing',
+        systemRunning: 'System Running',
+        workingPrincipleVisualization: 'Constant Space Working Principle Visualization Demo',
+        coreAdvantages: 'Core Advantages',
+        coreAdvantageLocalProcessing: 'Local Processing',
+        coreAdvantageLocalProcessingDesc: 'All data is processed only on local devices and not uploaded to any server',
+        coreAdvantagePrivacyProtection: 'Privacy Protection',
+        coreAdvantagePrivacyProtectionDesc: 'Never steal, store or misuse any user privacy data',
+        coreAdvantageEfficientInput2: 'Efficient Input',
+        coreAdvantageEfficientInput2Desc: 'Intelligent association function to improve input efficiency and reduce repetitive operations',
+        conceptExplanation: 'Concept Explanation',
+        conceptDescription: 'Constant Space uses local processing technology to limit all data operations to be completed on user devices without relying on cloud servers. This design ensures data security and privacy protection while improving operation response speed. We are committed to providing an efficient and smooth input experience while ensuring user data security.',
+        animationEffects: 'Animation Effects',
+        animationPreview: 'Animation Preview',
+        realTimeAnimationPreview: 'Real-time Preview of Animation Effects',
+        animationControl: 'Animation Control',
+        selectAnimationType: 'Select Animation Type',
+        animationBounce: 'Bounce',
+        animationPulse: 'Pulse',
+        animationSpin: 'Spin',
+        animationFade: 'Fade In/Out',
+        animationSlide: 'Slide',
+        animationScale: 'Scale',
+        comparisonSummary: 'Comparison Summary',
+        comparisonSummaryText: 'From the above comparison, it can be seen that Constant Space has obvious advantages in core aspects such as data privacy protection, input efficiency, multi-language support, responsive design, and security. We are committed to providing users with a safer, more efficient, and more personalized input experience, making every input a pleasure.',
+        futurePlanning: 'Future Planning',
+        moreLanguageSupport: 'More Language Support',
+        moreLanguageSupportDesc: 'Add support for multiple languages such as Japanese, Korean, French, German, etc. to meet the needs of global users',
+        advancedSearchFeature: 'Advanced Search Features',
+        advancedSearchFeatureDesc: 'Add advanced search options, support exact matching, exclude keywords and other advanced search functions',
+        customThemes: 'Custom Themes',
+        customThemesDesc: 'Allow users to create and share custom themes to build personalized input interfaces',
+        browserExtensions: 'Browser Extensions',
+        browserExtensionsDesc: 'Develop Chrome, Firefox and other browser extensions, allowing users to use Constant Space on any webpage',
+        securityProtection: 'Security Protection',
+        dataInput: 'Data Input',
+        localStorage: 'Local Storage',
+        dataOutput: 'Data Output',
+        start: 'Start',
+        stop: 'Stop',
+        fast: 'Fast',
+        slow: 'Slow',
+        animationSpeed: 'Animation Speed',
+        animationEffectDescription: 'Animation Effect Description',
+        animationEffectDescriptionText: 'Constant Space provides a variety of animation effects that can be used to enhance the interactive experience of user interfaces. You can select different animation types and adjust the speed through the control panel above to preview the animation effects in real time. These animation effects can be applied to various interface elements such as buttons, cards, navigation menus, etc., bringing users more vivid and intuitive visual feedback.',
+        futurePlanningDesc: 'Constant Space is constantly evolving, and we have planned a series of exciting features and improvements to bring users an even better experience',
+        quarter2026Q2: '2026 Q2',
+        comingSoon: 'Coming Soon',
+        quarter2026Q3: '2026 Q3',
+        inDevelopment: 'In Development',
+        quarter2026Q4: '2026 Q4',
+        planned: 'Planned',
+        quarter2027Q1: '2027 Q1',
+        roadmap: 'Roadmap',
+        joinJourney: 'Join Our Journey',
+        privacyModalContent: `
+          <p class="mb-4 text-accent font-medium text-lg">Important Notice: Before using this platform, please carefully read the following privacy statement. Clicking "Agree" indicates that you accept all contents of this statement.</p>
+          <p class="mb-4"><strong class="text-white">Core Principle:</strong> Constant Space always prioritizes user privacy and <span class="font-medium">never steals, collects, stores, uses, or transfers any user privacy data</span>. All user operations and input content on this platform are processed only on local devices and will not be uploaded to any server. All your data is under your own control.</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">1. Data Collection Policy</h4>
+          <p class="mb-4">This platform does not actively collect any of your personal identification information (name, phone number, email, ID card number, address, etc.), device information (device model, system version, IP address, etc.), behavioral information (browsing history, operation records, input content, etc.), or any other privacy data that can identify personal identity.</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">2. Data Usage Rules</h4>
+          <p class="mb-4">Since this platform does not collect any user data, there is no data usage, analysis, sharing, transfer, disclosure, or other behaviors. No third party can obtain any of your relevant information through this platform, and we will not provide user data to any institution, enterprise, or individual.</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">3. Local Data Processing</h4>
+          <p class="mb-4">All your input content and operation settings on this platform are only stored in your local device. This platform will not upload or synchronize such data in any form. You can delete the relevant locally stored data at any time, and the operation right is completely under your control.</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">4. Security Protection Measures</h4>
+          <p class="mb-4">We adopt multi-layer security protection technologies to ensure the operational security of this platform, prevent any unauthorized access, tampering, attacks, or other behaviors, and ensure that this platform does not become a channel for stealing user data. At the same time, we will continuously update platform security strategies and promptly fix potential security vulnerabilities.</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">5. Compliance with Privacy Statement</h4>
+          <p class="mb-4">We strictly comply with relevant laws and regulations such as the Personal Information Protection Law of the People's Republic of China and the Cybersecurity Law, and adhere to privacy protection commitments. If this statement needs to be adjusted due to updates in laws and regulations, we will promptly release an updated version on the platform and retain the original core privacy protection principles.</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">6. User Rights</h4>
+          <p class="mb-6">You have the right to view the latest version of this privacy statement at any time, the right to refuse to accept this statement (you will not be able to use this platform's services after refusal), and the right to stop using this platform and delete local relevant data at any time. If you find that this platform has violated this privacy statement, you can provide feedback to us at any time.</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">7. Contact Information</h4>
+          <p>Official Email: jonessj893@gmail.com</p>
+        `,
+        termsModalContent: `
+          <p class="mb-4 text-accent font-medium text-lg">Important Notice: Before using this platform, please carefully read the following terms of service. Clicking "Agree" indicates that you accept all contents of these terms.</p>
+          <p class="mb-4">Welcome to use the services provided by Constant Space (hereinafter referred to as "this platform"). This service is provided by the Constant Space operation team (hereinafter referred to as "we"). Using this platform's services indicates that you agree to accept all contents of these service terms. If you do not agree, please do not use this service.</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">1. Service Usage Rights</h4>
+          <p class="mb-4">We grant you a non-exclusive, non-transferable limited right to use this platform's services in accordance with these terms. You promise to use this service only for legitimate purposes and shall not use this service to engage in any illegal, irregular, or behaviors that harm the legitimate rights and interests of others.</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">2. User Behavior Norms</h4>
+          <p class="mb-4">When using this service, you shall not engage in any behaviors that interfere with or disrupt the normal operation of this platform, including but not limited to malicious attacks, virus implantation, abuse of system resources, etc.; you shall not disseminate illegal, pornographic, violent, defamatory, or other不良信息.</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">3. Service Changes and Termination</h4>
+          <p class="mb-4">We have the right to adjust, suspend, or terminate all or part of the functions of this service at any time according to business development needs without prior notice. If service termination causes losses to you, we shall not bear any compensation liability (except for statutory circumstances).</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">4. Disclaimer</h4>
+          <p class="mb-4">This platform's services are provided "as is", and we do not guarantee that the services are uninterrupted, error-free, or vulnerability-free. We shall not bear compensation liability for any direct, indirect, or incidental losses arising from the use or inability to use this service, unless such losses are caused by our intentional or gross negligence.</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">5. Terms Changes</h4>
+          <p class="mb-6">We have the right to modify these service terms at any time. The modified terms will take effect immediately after being published on this platform. If you continue to use this service, it indicates that you accept the modified terms; if you do not agree, you should immediately stop using this service.</p>
+          <h4 class="text-white font-semibold mt-6 mb-3">6. Contact Information</h4>
+          <p>Official Email: jonessj893@gmail.com</p>
+        `
+      }
+    };
+
+    // 应用语言
+    function applyLanguage(lang) {
+      // 更新当前语言
+      currentLanguage = lang;
+      currentLanguageElement.textContent = lang === 'zh' ? '中文' : 'English';
+      // 更新移动端语言显示
+      if (mobileCurrentLanguage) {
+        mobileCurrentLanguage.textContent = lang === 'zh' ? '中文' : 'English';
+      }
+      localStorage.setItem('appLanguage', lang);
+      
+      // 更新页面文本
+      document.querySelectorAll('[data-lang]').forEach(element => {
+        const key = element.getAttribute('data-lang');
+        if (translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+      
+      // 更新占位符
+      document.querySelectorAll('[data-lang-placeholder]').forEach(element => {
+        const key = element.getAttribute('data-lang-placeholder');
+        if (translations[lang][key]) {
+          element.placeholder = translations[lang][key];
+        }
+      });
+      
+      // 更新弹窗内容
+      const privacyModalContent = document.getElementById('privacyModalContent');
+      const termsModalContent = document.getElementById('termsModalContent');
+      if (privacyModalContent) {
+        privacyModalContent.innerHTML = translations[lang].privacyModalContent;
+      }
+      if (termsModalContent) {
+        termsModalContent.innerHTML = translations[lang].termsModalContent;
+      }
+    }
+
+    // 切换语言
+    function changeLanguage(lang) {
+      applyLanguage(lang);
+      languageDropdown.classList.add('hidden');
+      // 语言切换后，清除同意状态并重新显示隐私声明弹窗
+      localStorage.removeItem('privacyAgreed');
+      // 显示隐私声明弹窗
+      privacyModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 移动端菜单交互
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLanguageBtn = document.getElementById('mobileLanguageBtn');
+    const mobileLanguageDropdown = document.getElementById('mobileLanguageDropdown');
+    const mobileCurrentLanguage = document.getElementById('mobileCurrentLanguage');
+
+    // 切换移动端菜单
+    function toggleMobileMenu() {
+      if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+      }
+    }
+
+    // 移动端菜单按钮点击事件
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    }
+
+    // 移动端语言选择下拉菜单
+    if (mobileLanguageBtn && mobileLanguageDropdown) {
+      mobileLanguageBtn.addEventListener('click', function() {
+        mobileLanguageDropdown.classList.toggle('hidden');
+      });
+    }
+
+    // 语言选择下拉菜单
+    if (languageBtn && languageDropdown) {
+      languageBtn.addEventListener('click', function() {
+        languageDropdown.classList.toggle('hidden');
+      });
+      
+      // 点击其他地方关闭下拉菜单
+      document.addEventListener('click', function(event) {
+        if (!languageBtn.contains(event.target) && !languageDropdown.contains(event.target) &&
+            !mobileLanguageBtn.contains(event.target) && !mobileLanguageDropdown.contains(event.target)) {
+          languageDropdown.classList.add('hidden');
+          if (mobileLanguageDropdown) {
+            mobileLanguageDropdown.classList.add('hidden');
+          }
+        }
+      });
+    }
+
+
+
+
+    // 初始化语言
+    applyLanguage(currentLanguage);
+
+    // 平滑滚动 - 点击锚点链接时
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        // 检查targetId是否为有效的选择器（不是空的#）
+        if (targetId === '#') {
+          return; // 跳过空的#链接，允许直接跳转
+        }
+        // 检查targetId是否只是一个#加上一个选择器，而不是一个完整的URL
+        if (!targetId.startsWith('#') || targetId.includes('http://') || targetId.includes('https://') || targetId.includes('.html')) {
+          return; // 跳过非锚点链接，允许直接跳转
+        }
+        e.preventDefault();
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // 页面加载时，若用户已同意隐私声明，不再弹出弹窗
+    window.addEventListener('load', () => {
+      if (localStorage.getItem('privacyAgreed') === 'true') {
+        privacyModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // FAQ切换功能
+    function toggleFAQ(button) {
+      const content = button.nextElementSibling;
+      const icon = button.querySelector('i');
+      
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        content.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    // 页面元素进入动画
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.fade-in');
+      
+      elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 100;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
+      });
+      
+      // 功能卡片图标动画
+      const featureCards = document.querySelectorAll('.feature-card');
+      
+      featureCards.forEach((card, index) => {
+        const cardTop = card.getBoundingClientRect().top;
+        const cardVisible = 50;
+        
+        if (cardTop < window.innerHeight - cardVisible && !card.classList.contains('animate')) {
+          // 添加延迟，使卡片动画依次触发
+          setTimeout(() => {
+            card.classList.add('animate');
+          }, index * 80);
+        }
+      });
+    }
+
+    // 初始化动画
+    function initAnimations() {
+      // 为所有板块添加淡入动画
+      const sections = document.querySelectorAll('section');
+      sections.forEach((section, index) => {
+        section.classList.add('fade-in');
+        section.style.animationDelay = `${index * 0.2}s`;
+      });
+      
+      // 为卡片添加悬停效果
+      const cards = document.querySelectorAll('[class*="bg-gray-800/50"]:not(table):not(tbody):not(tr):not(td):not(th):not(.overflow-x-auto)');
+      cards.forEach(card => {
+        card.classList.add('card-hover', 'gradient-border');
+      });
+      
+      // 为主要按钮添加脉冲动画
+      const mainButtons = document.querySelector('.bg-gradient-primary');
+      if (mainButtons) {
+        mainButtons.classList.add('pulse');
+      }
+    }
+    
+    // 动画板块功能
+    let currentAnimation = 'bounce';
+    let animationSpeed = 1000;
+    let animationInterval;
+    
+    // 设置动画类型
+    function setAnimation(animationType) {
+      currentAnimation = animationType;
+      
+      // 更新按钮状态
+      document.querySelectorAll('.animation-btn').forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-white');
+        btn.classList.add('bg-gray-700', 'text-gray-300');
+      });
+      
+      // 获取当前点击的按钮并更新状态
+      event.target.classList.remove('bg-gray-700', 'text-gray-300');
+      event.target.classList.add('bg-primary', 'text-white');
+      
+      // 应用动画
+      applyAnimation();
+    }
+    
+    // 应用动画
+    function applyAnimation() {
+      const element = document.getElementById('animationElement');
+      if (!element) return;
+      
+      // 移除所有动画类
+      element.classList.remove('animation-bounce', 'animation-pulse', 'animation-spin', 'animation-fade', 'animation-slide', 'animation-scale');
+      
+      // 添加当前动画类
+      element.classList.add(`animation-${currentAnimation}`);
+      
+      // 更新动画速度
+      element.style.animationDuration = `${animationSpeed}ms`;
+    }
+    
+    // 开始动画
+    function startAnimation() {
+      const element = document.getElementById('animationElement');
+      if (!element) return;
+      
+      // 应用动画
+      applyAnimation();
+    }
+    
+    // 停止动画
+    function stopAnimation() {
+      const element = document.getElementById('animationElement');
+      if (!element) return;
+      
+      // 移除所有动画类
+      element.classList.remove('animation-bounce', 'animation-pulse', 'animation-spin', 'animation-fade', 'animation-slide', 'animation-scale');
+    }
+    
+    // 初始化动画板块
+    function initAnimationSection() {
+      // 获取速度滑块元素
+      const speedSlider = document.getElementById('animationSpeed');
+      if (speedSlider) {
+        speedSlider.addEventListener('input', function() {
+          animationSpeed = parseInt(this.value);
+          applyAnimation();
+        });
+      }
+      
+      // 获取控制按钮元素
+      const startBtn = document.getElementById('startAnimation');
+      const stopBtn = document.getElementById('stopAnimation');
+      
+      if (startBtn) {
+        startBtn.addEventListener('click', startAnimation);
+      }
+      
+      if (stopBtn) {
+        stopBtn.addEventListener('click', stopAnimation);
+      }
+    }
+    
+    // 初始化常数空间核心概念动画
+    function initConstantSpaceDemo() {
+      const localProcessing = document.getElementById('localProcessing');
+      const dataInputNode = document.getElementById('dataInputNode');
+      const securityNode = document.getElementById('securityNode');
+      const storageNode = document.getElementById('storageNode');
+      const outputNode = document.getElementById('outputNode');
+      const orbitContainer = document.getElementById('orbitContainer');
+      const statusIndicator = document.getElementById('statusIndicator');
+      
+      // 数据流动画元素
+      const flow1 = document.getElementById('flow1');
+      const flow2 = document.getElementById('flow2');
+      const flow3 = document.getElementById('flow3');
+      const flow4 = document.getElementById('flow4');
+      const dot1 = document.getElementById('dot1');
+      const dot2 = document.getElementById('dot2');
+      const dot3 = document.getElementById('dot3');
+      const dot4 = document.getElementById('dot4');
+      
+      if (!localProcessing) return;
+      
+      // 创建环绕粒子
+      function createOrbitingParticles() {
+        if (!orbitContainer) return;
+        
+        const particleCount = 8;
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'absolute w-1 h-1 bg-primary rounded-full';
+          orbitContainer.appendChild(particle);
+          
+          // 设置初始位置和动画
+          const angle = (i / particleCount) * Math.PI * 2;
+          const radius = 60 + (i % 3) * 10;
+          const duration = 3 + (i % 3);
+          
+          particle.style.left = '50%';
+          particle.style.top = '50%';
+          particle.style.transformOrigin = `${-radius}px 0`;
+          particle.style.transform = `translate(-50%, -50%) rotate(${angle}rad)`;
+          particle.style.animation = `orbit ${duration}s linear infinite`;
+        }
+      }
+      
+      // 本地处理节点动画
+      function animateLocalProcessing() {
+        localProcessing.style.transition = 'all 1s ease-in-out';
+        localProcessing.style.boxShadow = '0 0 25px rgba(22, 93, 255, 0.7)';
+        localProcessing.style.borderColor = '#7B61FF';
+        
+        setTimeout(() => {
+          localProcessing.style.boxShadow = '0 0 10px rgba(22, 93, 255, 0.3)';
+          localProcessing.style.borderColor = '#165DFF';
+          
+          setTimeout(animateLocalProcessing, 2000);
+        }, 1500);
+      }
+      
+      // 节点通用动画
+      function animateNode(node, color, delay) {
+        if (!node) return;
+        
+        setTimeout(() => {
+          node.style.transition = 'all 1.5s ease-in-out';
+          node.style.boxShadow = `0 0 20px ${color}`;
+          
+          setTimeout(() => {
+            node.style.boxShadow = '0 0 10px rgba(22, 93, 255, 0.3)';
+            animateNode(node, color, 2000);
+          }, 1500);
+        }, delay);
+      }
+      
+      // 数据流动画
+      function animateDataFlow() {
+        // 流动画1: 输入到处理
+        function animateFlow1() {
+          if (!flow1 || !dot1) return;
+          
+          flow1.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+          flow1.style.strokeDashoffset = '0';
+          
+          // 移动点
+          const pathLength = 200;
+          let progress = 0;
+          const moveDot = () => {
+            progress += 0.02;
+            if (progress > 1) return;
+            
+            const offsetX = 70 + (200 - 70) * progress;
+            const offsetY = 70 + (110 - 70) * progress;
+            dot1.setAttribute('cx', offsetX);
+            dot1.setAttribute('cy', offsetY);
+            
+            requestAnimationFrame(moveDot);
+          };
+          
+          moveDot();
+          
+          setTimeout(() => {
+            flow1.style.strokeDashoffset = '200';
+            dot1.setAttribute('cx', '70');
+            dot1.setAttribute('cy', '70');
+            setTimeout(animateFlow1, 2000);
+          }, 1500);
+        }
+        
+        // 流动画2: 处理到安全
+        function animateFlow2() {
+          if (!flow2 || !dot2) return;
+          
+          setTimeout(() => {
+            flow2.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+            flow2.style.strokeDashoffset = '0';
+            
+            // 移动点
+            let progress = 0;
+            const moveDot = () => {
+              progress += 0.02;
+              if (progress > 1) return;
+              
+              const offsetX = 200 + (330 - 200) * progress;
+              const offsetY = 140 + (230 - 140) * progress;
+              dot2.setAttribute('cx', offsetX);
+              dot2.setAttribute('cy', offsetY);
+              
+              requestAnimationFrame(moveDot);
+            };
+            
+            moveDot();
+            
+            setTimeout(() => {
+              flow2.style.strokeDashoffset = '200';
+              dot2.setAttribute('cx', '200');
+              dot2.setAttribute('cy', '140');
+              setTimeout(animateFlow2, 2000);
+            }, 1500);
+          }, 500);
+        }
+        
+        // 流动画3: 处理到存储
+        function animateFlow3() {
+          if (!flow3 || !dot3) return;
+          
+          setTimeout(() => {
+            flow3.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+            flow3.style.strokeDashoffset = '0';
+            
+            // 移动点
+            let progress = 0;
+            const moveDot = () => {
+              progress += 0.02;
+              if (progress > 1) return;
+              
+              const offsetX = 200 + (330 - 200) * progress;
+              const offsetY = 110 + (70 - 110) * progress;
+              dot3.setAttribute('cx', offsetX);
+              dot3.setAttribute('cy', offsetY);
+              
+              requestAnimationFrame(moveDot);
+            };
+            
+            moveDot();
+            
+            setTimeout(() => {
+              flow3.style.strokeDashoffset = '200';
+              dot3.setAttribute('cx', '200');
+              dot3.setAttribute('cy', '110');
+              setTimeout(animateFlow3, 2000);
+            }, 1500);
+          }, 1000);
+        }
+        
+        // 流动画4: 处理到输出
+        function animateFlow4() {
+          if (!flow4 || !dot4) return;
+          
+          setTimeout(() => {
+            flow4.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+            flow4.style.strokeDashoffset = '0';
+            
+            // 移动点
+            let progress = 0;
+            const moveDot = () => {
+              progress += 0.02;
+              if (progress > 1) return;
+              
+              const offsetX = 200 - (200 - 70) * progress;
+              const offsetY = 140 + (230 - 140) * progress;
+              dot4.setAttribute('cx', offsetX);
+              dot4.setAttribute('cy', offsetY);
+              
+              requestAnimationFrame(moveDot);
+            };
+            
+            moveDot();
+            
+            setTimeout(() => {
+              flow4.style.strokeDashoffset = '200';
+              dot4.setAttribute('cx', '200');
+              dot4.setAttribute('cy', '140');
+              setTimeout(animateFlow4, 2000);
+            }, 1500);
+          }, 1500);
+        }
+        
+        animateFlow1();
+        animateFlow2();
+        animateFlow3();
+        animateFlow4();
+      }
+      
+      // 状态指示器动画
+      function animateStatusIndicator() {
+        if (!statusIndicator) return;
+        
+        const statusText = statusIndicator.querySelector('span:last-child');
+        if (!statusText) return;
+        
+        const statuses = ['系统运行中', '数据处理中', '安全保护中', '本地存储中'];
+        let currentStatus = 0;
+        
+        setInterval(() => {
+          currentStatus = (currentStatus + 1) % statuses.length;
+          statusText.textContent = statuses[currentStatus];
+          
+          // 添加淡入淡出效果
+          statusIndicator.style.opacity = '0.5';
+          setTimeout(() => {
+            statusIndicator.style.opacity = '1';
+          }, 300);
+        }, 3000);
+      }
+      
+      // 添加轨道动画CSS
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes orbit {
+          from { transform: translate(-50%, -50%) rotate(0rad); }
+          to { transform: translate(-50%, -50%) rotate(6.28rad); }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // 启动所有动画
+      createOrbitingParticles();
+      animateLocalProcessing();
+      animateNode(dataInputNode, 'rgba(22, 93, 255, 0.7)', 0);
+      animateNode(securityNode, 'rgba(74, 222, 128, 0.7)', 500);
+      animateNode(storageNode, 'rgba(96, 165, 250, 0.7)', 1000);
+      animateNode(outputNode, 'rgba(167, 139, 250, 0.7)', 1500);
+      animateDataFlow();
+      animateStatusIndicator();
+    }
+
+    // 页面加载完成后初始化
+    window.addEventListener('load', function() {
+      initAnimations();
+      animateOnScroll();
+      initAnimationSection();
+      initConstantSpaceDemo();
+    });
+
+    // 滚动时触发动画
+    window.addEventListener('scroll', animateOnScroll);
+  </script>
+</body>
+</html>
