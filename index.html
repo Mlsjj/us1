@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>常数空间 - 官方平台</title>
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入Font Awesome图标库 -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 自定义Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#7B61FF',
+            accent: '#FF61BF',
+            dark: '#14171A', // X平台主深色
+            light: '#F5F8FA', // 浅背景色
+            gray: {
+              300: '#AAB8C2',
+              400: '#8899A6',
+              500: '#657786',
+              700: '#444B54',
+              800: '#1C2023',
+              900: '#14171A',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+  }
+
+</script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      /* 渐变文字工具类 - 匹配蓝→紫→洋红需求 */
+      .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+      }
+      /* 按钮渐变背景 */
+      .bg-gradient-primary {
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+      }
+      /* 通用按钮反馈 */
+      .btn-effect {
+        transition: all 0.2s ease;
+      }
+      .btn-effect:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(22, 93, 255, 0.2);
+      }
+      .btn-effect:active {
+        transform: scale(0.98);
+        box-shadow: none;
+      }
+      /* 社交图标hover渐变 */
+      .social-hover {
+        transition: all 0.3s ease;
+      }
+      .social-hover:hover {
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        color: white !important;
+        transform: translateY(-2px);
+      }
+      /* 链接渐变下划线 */
+      .link-grad {
+        position: relative;
+      }
+      .link-grad::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        transition: width 0.3s ease;
+      }
+      .link-grad:hover::after {
+        width: 100%;
+      }
+      /* 渐入动画 */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.8s ease forwards;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      /* 动画效果 */
+      .animation-bounce {
+        animation: bounce 1s ease infinite;
+      }
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-20px); }
+        60% { transform: translateY(-10px); }
+      }
+      
+      .animation-pulse {
+        animation: pulse 1s ease infinite;
+      }
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+      }
+      
+      .animation-spin {
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .animation-fade {
+        animation: fade 1s ease infinite;
+      }
+      @keyframes fade {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      
+      .animation-slide {
+        animation: slide 1s ease infinite;
+      }
+      @keyframes slide {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(20px); }
+      }
+      
+      .animation-scale {
+        animation: scale 1s ease infinite;
+      }
+      @keyframes scale {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+      }
+      /* 背景渐变效果 */
+      .bg-gradient-dark {
+        background: linear-gradient(135deg, #14171A 0%, #1C2023 100%);
+      }
+      /* 弹窗淡入动画 */
+      .modal-fade-in {
+        animation: modalFadeIn 0.5s ease forwards;
+      }
+      @keyframes modalFadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      /* 平滑滚动 */
+      html {
+        scroll-behavior: smooth;
+      }
+      /* 卡片悬停效果增强 */
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(22, 93, 255, 0.2);
+      }
+      /* 渐变边框效果 */
+      .gradient-border {
+        position: relative;
+        border-radius: 0.5rem;
+      }
+      .gradient-border::before {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        z-index: -1;
+        border-radius: 0.6rem;
+        background: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .gradient-border:hover::before {
+        opacity: 1;
+      }
+      /* 文字发光效果 */
+      .text-glow {
+        text-shadow: 0 0 10px rgba(22, 93, 255, 0.5), 0 0 20px rgba(22, 93, 255, 0.3);
+      }
+      /* 背景发光效果 */
+      .bg-glow {
+        box-shadow: 0 0 20px rgba(22, 93, 255, 0.3), 0 0 40px rgba(22, 93, 255, 0.1);
+      }
+      
+      /* 缓慢脉冲动画 */
+      .animate-pulse-slow {
+        animation: pulseSlow 3s ease-in-out infinite;
+      }
+      @keyframes pulseSlow {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+        }
+      }
+      
+      /* 下划线生长动画 */
+      .animate-grow {
+        animation: grow 2s ease-in-out infinite;
+      }
+      @keyframes grow {
+        0%, 100% {
+          width: 32px;
+        }
+        50% {
+          width: 64px;
+        }
+      }
+      /* 滚动条美化 */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #14171A;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        opacity: 0.8;
+      }
+      /* 脉冲动画 */
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(22, 93, 255, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(22, 93, 255, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(22, 93, 255, 0);
+        }
+      }
+      
+      /* 功能卡片图标动画 */
+      .feature-icon {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+        transition: all 0.6s ease-out;
+      }
+      
+      .feature-card.animate .feature-icon {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        animation: iconBounce 1s ease-out forwards;
+      }
+      
+      @keyframes iconBounce {
+        0% {
+          transform: translateY(20px) scale(0.8);
+        }
+        60% {
+          transform: translateY(-10px) scale(1.1);
+        }
+        100% {
+          transform: translateY(0) scale(1);
+        }
+      }
+      
+      /* 图标旋转动画 */
+      .feature-card.animate .feature-icon i {
+        animation: iconRotate 1s ease-out forwards;
+      }
+      
+      @keyframes iconRotate {
+        0% {
+          transform: rotate(0deg) scale(0.8);
+        }
+        100% {
+          transform: rotate(360deg) scale(1);
+        }
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-dark text-light min-h-screen flex flex-col">
+  <!-- 顶部导航栏 - 融合X/YouTube形态，简洁大气 -->
+  <header class="sticky top-0 z-50 bg-dark/70 backdrop-blur-md border-b border-gray-800/50 py-2 px-4 md:px-6 rounded-b-lg">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- 品牌logo - 常数空间渐变文字 -->
+      <h1 class="text-lg sm:text-xl md:text-2xl font-bold text-gradient" data-lang="welcome">常数空间</h1>
+      <!-- 导航链接 - 服务条款/隐私申明/联系我们 -->
+      <nav class="hidden md:flex gap-4 items-center">
+        <a href="#" onclick="showTerms()" class="text-gray-400 link-grad hover:text-white text-sm" data-lang="termsOfService">服务条款</a>
+        <a href="#" onclick="showPrivacy()" class="text-gray-400 link-grad hover:text-white text-sm" data-lang="privacyPolicy">隐私申明</a>
+        <a href="#" onclick="showContact()" class="text-gray-400 link-grad hover:text-white text-sm" data-lang="contactUs">联系我们</a>
+        <!-- 语言选择 -->
+        <div class="relative">
+          <button id="languageBtn" class="text-gray-400 link-grad hover:text-white flex items-center gap-1 text-sm">
+            <i class="fa fa-globe text-xs"></i>
+            <span id="currentLanguage">中文</span>
+          </button>
+          <div id="languageDropdown" class="absolute right-0 mt-1 w-28 bg-gray-800 rounded-lg shadow-lg hidden z-50">
+            <a href="#" onclick="changeLanguage('zh')" class="block px-3 py-1 text-xs text-gray-400 hover:bg-gray-700 hover:text-white">中文</a>
+            <a href="#" onclick="changeLanguage('en')" class="block px-3 py-1 text-xs text-gray-400 hover:bg-gray-700 hover:text-white">English</a>
+          </div>
+        </div>
+      </nav>
+      <!-- 移动端菜单按钮 -->
+      <button id="mobileMenuBtn" class="md:hidden text-gray-400 hover:text-white">
+        <i class="fa fa-bars text-lg"></i>
+      </button>
+    </div>
+    <!-- 移动端菜单 -->
+    <div id="mobileMenu" class="md:hidden hidden bg-gray-900 border-t border-gray-800 mt-2 py-2 px-4 rounded-b-lg">
+      <div class="flex flex-col gap-2">
+        <a href="#" onclick="showTerms(); toggleMobileMenu()" class="text-gray-400 link-grad hover:text-white py-1 text-sm" data-lang="termsOfService">服务条款</a>
+        <a href="#" onclick="showPrivacy(); toggleMobileMenu()" class="text-gray-400 link-grad hover:text-white py-1 text-sm" data-lang="privacyPolicy">隐私申明</a>
+        <a href="#" onclick="showContact(); toggleMobileMenu()" class="text-gray-400 link-grad hover:text-white py-1 text-sm" data-lang="contactUs">联系我们</a>
+        <!-- 移动端语言选择 -->
+        <div class="relative">
+          <button id="mobileLanguageBtn" class="text-gray-400 link-grad hover:text-white flex items-center gap-1 w-full justify-start py-1 text-sm">
+            <i class="fa fa-globe text-xs"></i>
+            <span id="mobileCurrentLanguage">中文</span>
+          </button>
+          <div id="mobileLanguageDropdown" class="absolute left-0 mt-1 w-28 bg-gray-800 rounded-lg shadow-lg hidden z-50">
+            <a href="#" onclick="changeLanguage('zh'); toggleMobileMenu()" class="block px-3 py-1 text-xs text-gray-400 hover:bg-gray-700 hover:text-white">中文</a>
+            <a href="#" onclick="changeLanguage('en'); toggleMobileMenu()" class="block px-3 py-1 text-xs text-gray-400 hover:bg-gray-700 hover:text-white">English</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main class="flex-grow">
+    <!-- 首页区域 -->
+    <section id="home" class="px-4 md:px-8 py-16 md:py-24 flex flex-col items-center justify-center">
+      <div class="max-w-4xl mx-auto text-center fade-in">
+        <!-- 品牌logo - 常数空间渐变文字 -->
+        <h1 class="text-5xl md:text-7xl font-bold mb-8 relative inline-block">
+          <span class="text-gradient relative z-10" data-lang="welcome">常数空间</span>
+          <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-primary rounded-full"></span>
+        </h1>
+        
+        <!-- 宣传标语 -->
+        <p class="text-2xl md:text-3xl text-gray-300 mb-12 max-w-3xl mx-auto font-light" data-lang="slogan">
+          探索无限可能的工具乐园
+        </p>
+        
+        <!-- 核心优势 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div class="bg-gray-800/50 rounded-2xl p-6 border border-gray-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/30 hover:bg-gray-800/80 transform hover:scale-105 transiti[...]
+            <div class="text-primary text-3xl mb-4 hover:text-white transition-colors duration-300 feature-icon">
+              <i class="fa fa-shield"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-white hover:text-gradient transition-all duration-300" data-lang="coreAdvantagePrivacy">隐私保护</h3>
+            <p class="text-gray-400 hover:text-gray-200 transition-colors duration-300" data-lang="coreAdvantagePrivacyDesc">绝不窃取、存储或滥用任何用户隐私数据，所有输入内容[...]
